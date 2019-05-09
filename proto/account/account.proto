@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package account;
+
+//Account项目服务
+service Account {
+    //通过email或者手机号注册一个用户
+    rpc RegisterAccountByEmailOrPhone (EmailOrPhoneRequest) returns (UserBaseInfo) {
+    }
+
+}
+
+//数据库,基本的账户信息
+message UserBaseInfo {
+    //id
+    int64 id = 1;
+    //账号
+    string account = 2;
+    //邮箱
+    string email = 3;
+    //手机号
+    string phone = 4;
+    //用户的真实姓名
+    string name = 5;
+}
+
+//数据库,用户绑定的三方账号
+message UserPlatformInfo {
+    //账户类型
+    int64 type = 1;
+    //账户id
+    int64 account_id = 2;
+    //三方平台标识的用户id
+    string platform_id = 3;
+}
+
+//获取用户的信息
+message UserInfo {
+    UserBaseInfo user_base_info = 1;
+    repeated UserPlatformInfo user_platform_info = 2;
+}
+
+//邮件或手机号请求
+message EmailOrPhoneRequest {
+    string email = 1;
+    string phone = 2;
+}
