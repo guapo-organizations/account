@@ -6,6 +6,8 @@ import (
 	"net"
 	pb "zldz/account-service/proto/account"
 	"zldz/account-service/service"
+	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
 const (
