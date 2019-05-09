@@ -13,8 +13,10 @@ import (
 func main() {
 
 	//加载一些公共的组件，比如数据库之类的
-	my_frame_tool := new(frame_tool.LyFrameTool)
-	my_frame_tool.ConfigPath = "./config"
+	my_frame_tool := frame_tool.LyFrameTool{
+		ConfigPath: "./config",
+	}
+
 	port := my_frame_tool.Run()
 
 	//开始监听
