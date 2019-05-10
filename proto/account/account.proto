@@ -14,14 +14,12 @@ service Account {
 message UserBaseInfo {
     //id
     int64 id = 1;
-    //账号
-    string account = 2;
     //邮箱
-    string email = 3;
+    string email = 2;
     //手机号
-    string phone = 4;
+    string phone = 3;
     //用户的真实姓名
-    string name = 5;
+    string name = 4;
 }
 
 //数据库,用户绑定的三方账号
