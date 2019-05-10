@@ -2,15 +2,11 @@ syntax = "proto3";
 
 package account;
 
-import "google/protobuf/Empty.proto";
 
 //Account项目服务
 service Account {
     //通过email或者手机号注册一个用户
     rpc RegisterAccountByEmailOrPhone (EmailOrPhoneRequest) returns (UserBaseInfo) {
-    }
-
-    rpc GetPlatformTypeList (google.protobuf.Empty) returns (PlatformTypeList) {
     }
 
     //通过三方注册
