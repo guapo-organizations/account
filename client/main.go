@@ -24,7 +24,7 @@ func main() {
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	r, err := c.RegisterAccountByEmailOrPhone(ctx, &pb.EmailOrPhoneRequest{Email: "51785816@qq.com"})
+	r, err := c.RegisterAccountByEmailOrPhone(ctx, &pb.EmailOrPhoneRequest{Phone: "13647897503"})
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)
 	}

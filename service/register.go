@@ -18,7 +18,7 @@ func (this *AccountService) RegisterAccountByEmailOrPhone(ctx context.Context, i
 	}
 
 	//手机号注册
-	account_model, err = register_service.RegisterAccountByPhone(in.Email)
+	account_model, err = register_service.RegisterAccountByPhone(in.Phone)
 	if err == nil {
 		return this.AccountModelChangeUserBaseInfo(account_model), nil
 	}
