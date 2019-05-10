@@ -9,3 +9,8 @@ type AccountPlatform struct {
 	Type       int64  `gorm:"column:type"`
 	PlatformId string `gorm:"column:platform_id"`
 }
+
+//表的名字
+func (a AccountPlatform) TableName() string {
+	return "account_platform"
+}
