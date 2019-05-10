@@ -12,7 +12,7 @@ func (this *AccountService) RegisterAccountByEmailOrPhone(ctx context.Context, i
 	register_service := lib.RegisterService{}
 
 	//邮箱注册
-	if in.Email == "" {
+	if in.Email != "" {
 		account_model, err := register_service.RegisterAccountByEmail(in.Email)
 		//可能是格式出错
 		if err != nil {
@@ -22,7 +22,7 @@ func (this *AccountService) RegisterAccountByEmailOrPhone(ctx context.Context, i
 	}
 
 	//手机号注册
-	if in.Phone == "" {
+	if in.Phone != "" {
 		account_model, err := register_service.RegisterAccountByPhone(in.Phone)
 		//可能是格式出错
 		if err != nil {
