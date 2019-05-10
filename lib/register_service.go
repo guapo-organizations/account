@@ -2,16 +2,16 @@ package lib
 
 import (
 	"fmt"
+	"github.com/guapo-organizations/account-service/model"
 	"github.com/guapo-organizations/go-micro-secret/database"
 	"github.com/guapo-organizations/go-micro-secret/help"
-	"github.com/guapo-organizations/account-service/model"
 )
 
 type RegisterService struct {
 }
 
 //邮箱注册
-func (this RegisterService) RegisterAccountByEmail(email string) (*model.Account, error) {
+func (this RegisterService) RegisterAccountByEmail(email, passwd string) (*model.Account, error) {
 
 	if !help.VerifyEmailFormat(email) {
 		return nil, fmt.Errorf("email格式不对")
@@ -31,13 +31,14 @@ func (this RegisterService) RegisterAccountByEmail(email string) (*model.Account
 
 	//email注册
 	account_model.Email = email
+	account_model.Passwd = passwd
 	db.Create(account_model)
 
 	return account_model, nil
 }
 
 //手机号注册
-func (this RegisterService) RegisterAccountByPhone(phone string) (*model.Account, error) {
+func (this RegisterService) RegisterAccountByPhone(phone, passwd string) (*model.Account, error) {
 
 	if !help.VerifyMobileFormat(phone) {
 		return nil, fmt.Errorf("手机号格式不对")
@@ -57,7 +58,8 @@ func (this RegisterService) RegisterAccountByPhone(phone string) (*model.Account
 
 	//手机注册
 	account_model.Phone = phone
+	account_model.Passwd = passwd
 	db.Create(account_model)
-	
+
 	return account_model, nil
 }

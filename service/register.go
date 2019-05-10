@@ -15,7 +15,7 @@ func (this *AccountService) RegisterAccountByEmailOrPhone(ctx context.Context, i
 
 	//邮箱注册
 	if in.Email != "" {
-		account_model, err := register_service.RegisterAccountByEmail(in.Email)
+		account_model, err := register_service.RegisterAccountByEmail(in.Email, in.Passwd)
 		//可能是格式出错
 		if err != nil {
 			return nil, err
@@ -25,7 +25,7 @@ func (this *AccountService) RegisterAccountByEmailOrPhone(ctx context.Context, i
 
 	//手机号注册
 	if in.Phone != "" {
-		account_model, err := register_service.RegisterAccountByPhone(in.Phone)
+		account_model, err := register_service.RegisterAccountByPhone(in.Phone, in.Passwd)
 		//可能是格式出错
 		if err != nil {
 			return nil, err
@@ -37,7 +37,12 @@ func (this *AccountService) RegisterAccountByEmailOrPhone(ctx context.Context, i
 	return nil, fmt.Errorf("你想干嘛？你怎么不传参数？")
 }
 
-//第三方注册
-func (this *AccountService) RegisterAccountByPlatform(ctx context.Context, in *account.PlatformRequest) (*account.UserPlatformInfo, error) {
+//手机号或者email登录
+func (this *AccountService) LoginAccount(ctx context.Context, in *account.EmailOrPhoneRequest) (*account.UserInfo, error) {
+	return nil, nil
+}
+
+//第三方登录
+func (this *AccountService) LoginAccountByPlatform(ctx context.Context, in *account.PlatformRequest) (*account.UserInfo, error) {
 	return nil, nil
 }

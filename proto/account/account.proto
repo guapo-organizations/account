@@ -2,15 +2,18 @@ syntax = "proto3";
 
 package account;
 
-
 //Account项目服务
 service Account {
     //通过email或者手机号注册一个用户
     rpc RegisterAccountByEmailOrPhone (EmailOrPhoneRequest) returns (UserBaseInfo) {
     }
 
-    //通过三方注册
-    rpc RegisterAccountByPlatform (PlatformRequest) returns (UserPlatformInfo) {
+    //通过验证码，或者手机登录
+    rpc LoginAccount (EmailOrPhoneRequest) returns (UserInfo) {
+    }
+
+    //通过三方登录
+    rpc LoginAccountByPlatform (PlatformRequest) returns (UserInfo) {
     }
 }
 
@@ -46,6 +49,7 @@ message UserInfo {
 message EmailOrPhoneRequest {
     string email = 1;
     string phone = 2;
+    string passwd = 3;
 }
 
 //三方类型定义
