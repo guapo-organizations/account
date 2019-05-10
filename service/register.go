@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 	"fmt"
-	"zldz/account-service/lib"
-	"zldz/account-service/proto/account"
+	"github.com/guapo-organizations/account-service/lib"
+	"github.com/guapo-organizations/account-service/proto/account"
 )
 
 //实现grpc服务接口

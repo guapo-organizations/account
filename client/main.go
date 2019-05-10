@@ -5,7 +5,7 @@ import (
 	"google.golang.org/grpc"
 	"log"
 	"time"
-	pb "zldz/account-service/proto/account"
+	pb "github.com/guapo-organizations/account-service/proto/account"
 )
 
 const (

@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
+	pb "github.com/guapo-organizations/account-service/proto/account"
+	myservice "github.com/guapo-organizations/account-service/service"
 	"github.com/guapo-organizations/go-micro-secret/frame_tool"
 	"google.golang.org/grpc"
 	"log"
 	"net"
-	pb "zldz/account-service/proto/account"
-	myservice "zldz/account-service/service"
 )
 
 func main() {

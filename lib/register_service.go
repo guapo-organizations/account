@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/guapo-organizations/go-micro-secret/database"
 	"github.com/guapo-organizations/go-micro-secret/help"
-	"zldz/account-service/model"
+	"github.com/guapo-organizations/account-service/model"
 )
 
 type RegisterService struct {

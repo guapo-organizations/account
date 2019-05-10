@@ -1,8 +1,8 @@
 package service
 
 import (
-	"zldz/account-service/model"
-	"zldz/account-service/proto/account"
+	"github.com/guapo-organizations/account-service/model"
+	"github.com/guapo-organizations/account-service/proto/account"
 )
 
 type AccountService struct {
