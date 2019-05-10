@@ -13,7 +13,7 @@ func (this *AccountService) AccountModelChangeUserBaseInfo(account_model *model.
 	response := new(account.UserBaseInfo)
 	response.Phone = account_model.Phone
 	response.Email = account_model.Email
-	response.Id = account_model.Id
+	response.Id = int64(account_model.ID)
 	response.Name = account_model.Name
 	return response
 }

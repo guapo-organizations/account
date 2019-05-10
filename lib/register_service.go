@@ -18,20 +18,21 @@ func (this RegisterService) RegisterAccountByEmail(email string) (*model.Account
 	}
 
 	db := database.GetMysqlDB()
+	//执行一下new，保证指针不是nil
 	account_model := new(model.Account)
-
 	db.Where(&model.Account{
 		Email: email,
 	}).First(account_model)
 
 	//找到直接返回
-	if account_model.Id != 0 {
+	if account_model.ID != 0 {
 		return account_model, nil
 	}
 
 	//email注册
 	account_model.Email = email
 	db.Create(account_model)
+
 	return account_model, nil
 }
 
@@ -41,6 +42,7 @@ func (this RegisterService) RegisterAccountByPhone(phone string) (*model.Account
 	if !help.VerifyMobileFormat(phone) {
 		return nil, fmt.Errorf("手机号格式不对")
 	}
+
 	db := database.GetMysqlDB()
 	account_model := new(model.Account)
 
@@ -49,12 +51,13 @@ func (this RegisterService) RegisterAccountByPhone(phone string) (*model.Account
 	}).First(account_model)
 
 	//找到直接返回
-	if account_model.Id != 0 {
+	if account_model.ID != 0 {
 		return account_model, nil
 	}
 
 	//手机注册
 	account_model.Phone = phone
 	db.Create(account_model)
+	
 	return account_model, nil
 }
