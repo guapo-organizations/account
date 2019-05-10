@@ -17,6 +17,7 @@ func main() {
 		ConfigPath: "./config",
 	}
 
+	//返回的是grpc服务的端口
 	port := my_frame_tool.Run()
 
 	//开始监听
