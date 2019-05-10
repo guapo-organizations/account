@@ -1,7 +1,7 @@
 {
-  "ip":"106.12.76.73",
+  "ip":"116.12.76.73",
   "port":"3306",
   "user": "myaccount",
-  "passwd": "aOl7oIg6UNmc2GCH",
+  "passwd": "a123",
   "db": "account"
 }
