@@ -10,3 +10,21 @@
 >>>account 
 
 >>service  具体实现protobuf的struct
+
+
+
+
+
+## config 里面的配置文件是json格式的
+
+demo
+```
+{
+  "ip":"126.123.76.73",
+  "port":"3306",
+  "user": "myaccount",
+  "passwd": "123456",
+  "db": "mydb"
+}
+
+```
