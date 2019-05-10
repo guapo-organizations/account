@@ -8,6 +8,8 @@ import (
 )
 
 //实现grpc服务接口
+
+//邮箱或者手机号注册
 func (this *AccountService) RegisterAccountByEmailOrPhone(ctx context.Context, in *account.EmailOrPhoneRequest) (*account.UserBaseInfo, error) {
 	register_service := lib.RegisterService{}
 
@@ -28,9 +30,14 @@ func (this *AccountService) RegisterAccountByEmailOrPhone(ctx context.Context, i
 		if err != nil {
 			return nil, err
 		}
-		
+
 		return this.AccountModelChangeUserBaseInfo(account_model), nil
 	}
 
 	return nil, fmt.Errorf("你想干嘛？你怎么不传参数？")
+}
+
+//第三方注册
+func (this *AccountService) RegisterAccountByPlatform(ctx context.Context, in *account.PlatformRequest) (*account.UserPlatformInfo, error) {
+	return nil, nil
 }
