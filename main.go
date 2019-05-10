@@ -26,6 +26,8 @@ func main() {
 		log.Fatalf("account服务监听失败: %v", err)
 	}
 
+	log.Println(fmt.Sprintf("服务端口:%s", port))
+
 	//构建服务
 	s := grpc.NewServer()
 	//注册服务
