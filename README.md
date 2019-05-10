@@ -21,12 +21,14 @@
 
 demo
 ```
+项目不大，不需要弄读写分离
 {
-  "ip":"126.123.76.73",
-  "port":"3306",
-  "user": "myaccount",
-  "passwd": "123456",
-  "db": "mydb"
+  "start": true          #开启mysql
+  "ip":"126.123.76.73",  #连接ip
+  "port":"3306",         #端口
+  "user": "myaccount",   #连接账号
+  "passwd": "123456",    #连接密码
+  "db": "mydb"           #使用的数据
 }
 
 ```
