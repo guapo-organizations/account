@@ -9,6 +9,8 @@ import (
 
 //实现grpc服务接口
 
+//用户注册登录
+
 //邮箱或者手机号注册
 func (this *AccountService) RegisterAccountByEmailOrPhone(ctx context.Context, in *account.EmailOrPhoneRequest) (*account.UserBaseInfo, error) {
 	register_service := lib.RegisterService{}

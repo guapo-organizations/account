@@ -8,6 +8,10 @@ service Account {
     rpc RegisterAccountByEmailOrPhone (EmailOrPhoneRequest) returns (UserBaseInfo) {
     }
 
+    //邮箱发送验证码
+    rpc SendEmailCode (EmailOrPhoneRequest) returns (SendMesaageResponse) {
+    }
+
     //通过验证码，或者手机登录
     rpc LoginAccount (EmailOrPhoneRequest) returns (UserInfo) {
     }
@@ -43,6 +47,11 @@ message UserPlatformInfo {
 message UserInfo {
     UserBaseInfo user_base_info = 1;
     repeated UserPlatformInfo user_platform_info = 2;
+}
+
+//发送消息的结果
+message SendMesaageResponse {
+    bool status = 1;
 }
 
 //邮件或手机号注册请求
