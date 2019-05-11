@@ -9,6 +9,7 @@ import (
 	"github.com/lifei6671/gorand"
 	email_lib "github.com/nilslice/email"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -27,55 +28,76 @@ func (this SendMessageService) getEmailCacheKey(email string) string {
 }
 
 //邮箱发送验证码
-func (this SendMessageService) SendEmailCode(email string) (bool, error) {
+func (this SendMessageService) SendEmailCode(email string) (result bool, err error) {
 
 	if !help.VerifyEmailFormat(email) {
-		return false, fmt.Errorf("邮箱格式不对")
+		result = false
+		err = fmt.Errorf("邮箱格式不对")
+		return
 	}
+
+	//一边异步存储，一边异步发送验证码
+	var wg sync.WaitGroup
+	wg.Add(2)
 
 	//异步的将email存起来
 	go func(email string) {
+		defer wg.Done()
 		register_service := register.RegisterService{}
-		register_service.StoreEmail(email)
+		_, store_err := register_service.StoreEmail(email)
+		if store_err != nil {
+			result = false
+			err = store_err
+		}
 	}(email)
 
 	//调用三方发送验证码
-	redis_client := cache.GetRedisClient()
+	go func(email string) {
+		defer wg.Done()
+		redis_client := cache.GetRedisClient()
+		//如果err没有报错，则是获取到了值
+		_, send_err := redis_client.Get(this.getEmailCacheKey(email)).Result()
 
-	_, err := redis_client.Get(this.getEmailCacheKey(email)).Result()
-	if err == redis.Nil {
-		//不存在key
-		//发送验证码
-		code := gorand.KRand(6, gorand.KC_RAND_KIND_ALL)
-
-		msg := email_lib.Message{
-			To:      email,
-			From:    FROM_EMAIL,
-			Subject: "来自最靓的仔团队",
-			Body:    fmt.Sprintf("欢迎，欢迎，这是您的验证码：%s;请收好", code),
+		if send_err == redis.Nil {
+			//邮箱没有发送过
+			code := gorand.KRand(6, gorand.KC_RAND_KIND_ALL)
+			msg := email_lib.Message{
+				To:      email,
+				From:    FROM_EMAIL,
+				Subject: "来自最靓的仔团队",
+				Body:    fmt.Sprintf("欢迎，欢迎，这是您的验证码：%s;请收好", code),
+			}
+			send_err = msg.Send()
+			if send_err != nil {
+				result = false
+				err = send_err
+				return
+			}
+			_, err = redis_client.SetNX(this.getEmailCacheKey(email), code, 60*time.Second).Result()
+			if send_err != nil {
+				result = false
+				err = send_err
+				return
+			}
+			//发送成功
+			result = true
+			err = nil
+			return
 		}
 
-		err := msg.Send()
-		if err != nil {
-			return false, err
+		//邮箱已经发送
+		result = false
+		err = fmt.Errorf("我丢，你已经发送过验证码了，稍后再发好吧？！")
+		if send_err != nil {
+			//也可能是连接出错了
+			err = send_err
 		}
 
-		_, err = redis_client.SetNX(this.getEmailCacheKey(email), code, 60*time.Second).Result()
+	}(email)
 
-		if err != nil {
-			return false, err
-		}
+	wg.Wait()
 
-		return true, nil
-	}
-
-	//不知道什么错
-	if err != nil {
-		return false, err
-	}
-
-	//有值
-	return false, fmt.Errorf("我丢，你已经发送过验证码了，稍后再发好吧？！")
+	return
 }
 
 //校验emailCode
