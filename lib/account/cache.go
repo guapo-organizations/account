@@ -8,8 +8,8 @@ import (
 )
 
 const (
-	EMAIL_TOKEN_PREFIX = "email:token:"
-	PHONE_TOKEN_PREFIX = "phone:token"
+	EMAIL_TOKEN_PREFIX = "account-service:email:token:"
+	PHONE_TOKEN_PREFIX = "account-service:phone:token"
 )
 
 //email在缓存中的key

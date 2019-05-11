@@ -15,7 +15,7 @@ import (
 const (
 	FROM_EMAIL = "13647897503@163.com"
 	//缓存前缀
-	EMAIL_CODE_CACHE_PREFIX = "email:code:"
+	EMAIL_CODE_CACHE_PREFIX = "account-service:email:code:"
 )
 
 //一分钟内不能重发验证码
