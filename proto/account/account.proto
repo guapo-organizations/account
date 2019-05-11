@@ -9,21 +9,18 @@ service Account {
     rpc SendEmailCode (EmailOrPhoneRequest) returns (SendMesaageResponse) {
     }
 
-
-    //通过email或者手机号注册一个用户
-    rpc RegisterAccountByEmailOrPhone (EmailOrPhoneRequest) returns (UserBaseInfo) {
-    }
     //邮箱验证校验
     rpc ValidateEmailCode (EmailOrPhoneRequest) returns (ValidataCodeResponse) {
     }
 
-    //通过验证码，或者手机登录
-    rpc LoginAccount (EmailOrPhoneRequest) returns (UserInfo) {
+    //通过email注册一个用户
+    rpc RegisterAccountByEmailToken (RegisterAccountInfo) returns (UserBaseInfo) {
     }
 
-    //通过三方登录
-    rpc LoginAccountByPlatform (PlatformRequest) returns (UserInfo) {
+    //通过手机号注册一个用户
+    rpc RegisterAccountByPhoneToken (RegisterAccountInfo) returns (UserBaseInfo) {
     }
+
 }
 
 //数据库,基本的账户信息
@@ -54,42 +51,33 @@ message UserInfo {
     repeated UserPlatformInfo user_platform_info = 2;
 }
 
-//发送消息的结果
+//邮件或手机号
+message EmailOrPhoneRequest {
+    string email = 1;
+    string phone = 2;
+}
+
+//通过token去缓存找对应的手机号或者邮箱
+message Token {
+    string email_token = 1;
+    string phone_token = 2;
+}
+
+//注册账号信息
+message RegisterAccountInfo {
+    Token token = 1;
+    string passwd = 2;
+}
+
+//邮箱或者手机号发送验证码的结果
 message SendMesaageResponse {
     int64 status = 1;
     string errmsg = 2;
-    //换取email的token
-    string email_token = 3;
-    //换取phone的token
-    string phone_token = 4;
+    Token token = 3;
 }
 
 //code校验结果
 message ValidataCodeResponse {
     int64 status = 1;
     string errmsg = 2;
-}
-
-//邮件或手机号注册请求
-message EmailOrPhoneRequest {
-    string email = 1;
-    string phone = 2;
-    string passwd = 3;
-}
-
-//三方类型定义
-message Type {
-    int64 type = 1;
-    string name = 2;
-}
-
-//三方类型
-message PlatformTypeList {
-    repeated Type type = 1;
-}
-
-//三方注册请求
-message PlatformRequest {
-    Type type = 1;
-    string platform_id = 2;
 }

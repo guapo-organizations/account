@@ -23,9 +23,11 @@ func (this *AccountService) SendEmailCode(ctx context.Context, in *account.Email
 
 	//能走到这里就是发送成功了
 	return &account.SendMesaageResponse{
-		Status:     0,
-		Errmsg:     "",
-		EmailToken: account_service.GetEmailToken(in.Email),
+		Status: 0,
+		Errmsg: "",
+		Token: &account.Token{
+			EmailToken: account_service.GetEmailToken(in.Email),
+		},
 	}, nil
 
 }

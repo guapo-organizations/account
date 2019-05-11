@@ -199,125 +199,10 @@ func (m *UserInfo) GetUserPlatformInfo() []*UserPlatformInfo {
 	return nil
 }
 
-//发送消息的结果
-type SendMesaageResponse struct {
-	Status int64  `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
-	Errmsg string `protobuf:"bytes,2,opt,name=errmsg,proto3" json:"errmsg,omitempty"`
-	//换取email的token
-	EmailToken string `protobuf:"bytes,3,opt,name=email_token,json=emailToken,proto3" json:"email_token,omitempty"`
-	//换取phone的token
-	PhoneToken           string   `protobuf:"bytes,4,opt,name=phone_token,json=phoneToken,proto3" json:"phone_token,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *SendMesaageResponse) Reset()         { *m = SendMesaageResponse{} }
-func (m *SendMesaageResponse) String() string { return proto.CompactTextString(m) }
-func (*SendMesaageResponse) ProtoMessage()    {}
-func (*SendMesaageResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5d492a0187472a3b, []int{3}
-}
-
-func (m *SendMesaageResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SendMesaageResponse.Unmarshal(m, b)
-}
-func (m *SendMesaageResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SendMesaageResponse.Marshal(b, m, deterministic)
-}
-func (m *SendMesaageResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SendMesaageResponse.Merge(m, src)
-}
-func (m *SendMesaageResponse) XXX_Size() int {
-	return xxx_messageInfo_SendMesaageResponse.Size(m)
-}
-func (m *SendMesaageResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_SendMesaageResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_SendMesaageResponse proto.InternalMessageInfo
-
-func (m *SendMesaageResponse) GetStatus() int64 {
-	if m != nil {
-		return m.Status
-	}
-	return 0
-}
-
-func (m *SendMesaageResponse) GetErrmsg() string {
-	if m != nil {
-		return m.Errmsg
-	}
-	return ""
-}
-
-func (m *SendMesaageResponse) GetEmailToken() string {
-	if m != nil {
-		return m.EmailToken
-	}
-	return ""
-}
-
-func (m *SendMesaageResponse) GetPhoneToken() string {
-	if m != nil {
-		return m.PhoneToken
-	}
-	return ""
-}
-
-//code校验结果
-type ValidataCodeResponse struct {
-	Status               int64    `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
-	Errmsg               string   `protobuf:"bytes,2,opt,name=errmsg,proto3" json:"errmsg,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *ValidataCodeResponse) Reset()         { *m = ValidataCodeResponse{} }
-func (m *ValidataCodeResponse) String() string { return proto.CompactTextString(m) }
-func (*ValidataCodeResponse) ProtoMessage()    {}
-func (*ValidataCodeResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5d492a0187472a3b, []int{4}
-}
-
-func (m *ValidataCodeResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ValidataCodeResponse.Unmarshal(m, b)
-}
-func (m *ValidataCodeResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ValidataCodeResponse.Marshal(b, m, deterministic)
-}
-func (m *ValidataCodeResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ValidataCodeResponse.Merge(m, src)
-}
-func (m *ValidataCodeResponse) XXX_Size() int {
-	return xxx_messageInfo_ValidataCodeResponse.Size(m)
-}
-func (m *ValidataCodeResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_ValidataCodeResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ValidataCodeResponse proto.InternalMessageInfo
-
-func (m *ValidataCodeResponse) GetStatus() int64 {
-	if m != nil {
-		return m.Status
-	}
-	return 0
-}
-
-func (m *ValidataCodeResponse) GetErrmsg() string {
-	if m != nil {
-		return m.Errmsg
-	}
-	return ""
-}
-
-//邮件或手机号注册请求
+//邮件或手机号
 type EmailOrPhoneRequest struct {
 	Email                string   `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
 	Phone                string   `protobuf:"bytes,2,opt,name=phone,proto3" json:"phone,omitempty"`
-	Passwd               string   `protobuf:"bytes,3,opt,name=passwd,proto3" json:"passwd,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -327,7 +212,7 @@ func (m *EmailOrPhoneRequest) Reset()         { *m = EmailOrPhoneRequest{} }
 func (m *EmailOrPhoneRequest) String() string { return proto.CompactTextString(m) }
 func (*EmailOrPhoneRequest) ProtoMessage()    {}
 func (*EmailOrPhoneRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5d492a0187472a3b, []int{5}
+	return fileDescriptor_5d492a0187472a3b, []int{3}
 }
 
 func (m *EmailOrPhoneRequest) XXX_Unmarshal(b []byte) error {
@@ -362,145 +247,202 @@ func (m *EmailOrPhoneRequest) GetPhone() string {
 	return ""
 }
 
-func (m *EmailOrPhoneRequest) GetPasswd() string {
+//通过token去缓存找对应的手机号或者邮箱
+type Token struct {
+	EmailToken           string   `protobuf:"bytes,1,opt,name=email_token,json=emailToken,proto3" json:"email_token,omitempty"`
+	PhoneToken           string   `protobuf:"bytes,2,opt,name=phone_token,json=phoneToken,proto3" json:"phone_token,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Token) Reset()         { *m = Token{} }
+func (m *Token) String() string { return proto.CompactTextString(m) }
+func (*Token) ProtoMessage()    {}
+func (*Token) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5d492a0187472a3b, []int{4}
+}
+
+func (m *Token) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Token.Unmarshal(m, b)
+}
+func (m *Token) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Token.Marshal(b, m, deterministic)
+}
+func (m *Token) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Token.Merge(m, src)
+}
+func (m *Token) XXX_Size() int {
+	return xxx_messageInfo_Token.Size(m)
+}
+func (m *Token) XXX_DiscardUnknown() {
+	xxx_messageInfo_Token.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Token proto.InternalMessageInfo
+
+func (m *Token) GetEmailToken() string {
+	if m != nil {
+		return m.EmailToken
+	}
+	return ""
+}
+
+func (m *Token) GetPhoneToken() string {
+	if m != nil {
+		return m.PhoneToken
+	}
+	return ""
+}
+
+//注册账号信息
+type RegisterAccountInfo struct {
+	Token                *Token   `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	Passwd               string   `protobuf:"bytes,2,opt,name=passwd,proto3" json:"passwd,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RegisterAccountInfo) Reset()         { *m = RegisterAccountInfo{} }
+func (m *RegisterAccountInfo) String() string { return proto.CompactTextString(m) }
+func (*RegisterAccountInfo) ProtoMessage()    {}
+func (*RegisterAccountInfo) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5d492a0187472a3b, []int{5}
+}
+
+func (m *RegisterAccountInfo) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RegisterAccountInfo.Unmarshal(m, b)
+}
+func (m *RegisterAccountInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RegisterAccountInfo.Marshal(b, m, deterministic)
+}
+func (m *RegisterAccountInfo) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RegisterAccountInfo.Merge(m, src)
+}
+func (m *RegisterAccountInfo) XXX_Size() int {
+	return xxx_messageInfo_RegisterAccountInfo.Size(m)
+}
+func (m *RegisterAccountInfo) XXX_DiscardUnknown() {
+	xxx_messageInfo_RegisterAccountInfo.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RegisterAccountInfo proto.InternalMessageInfo
+
+func (m *RegisterAccountInfo) GetToken() *Token {
+	if m != nil {
+		return m.Token
+	}
+	return nil
+}
+
+func (m *RegisterAccountInfo) GetPasswd() string {
 	if m != nil {
 		return m.Passwd
 	}
 	return ""
 }
 
-//三方类型定义
-type Type struct {
-	Type                 int64    `protobuf:"varint,1,opt,name=type,proto3" json:"type,omitempty"`
-	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+//邮箱或者手机号发送验证码的结果
+type SendMesaageResponse struct {
+	Status               int64    `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	Errmsg               string   `protobuf:"bytes,2,opt,name=errmsg,proto3" json:"errmsg,omitempty"`
+	Token                *Token   `protobuf:"bytes,3,opt,name=token,proto3" json:"token,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *Type) Reset()         { *m = Type{} }
-func (m *Type) String() string { return proto.CompactTextString(m) }
-func (*Type) ProtoMessage()    {}
-func (*Type) Descriptor() ([]byte, []int) {
+func (m *SendMesaageResponse) Reset()         { *m = SendMesaageResponse{} }
+func (m *SendMesaageResponse) String() string { return proto.CompactTextString(m) }
+func (*SendMesaageResponse) ProtoMessage()    {}
+func (*SendMesaageResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_5d492a0187472a3b, []int{6}
 }
 
-func (m *Type) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Type.Unmarshal(m, b)
+func (m *SendMesaageResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SendMesaageResponse.Unmarshal(m, b)
 }
-func (m *Type) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Type.Marshal(b, m, deterministic)
+func (m *SendMesaageResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SendMesaageResponse.Marshal(b, m, deterministic)
 }
-func (m *Type) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Type.Merge(m, src)
+func (m *SendMesaageResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SendMesaageResponse.Merge(m, src)
 }
-func (m *Type) XXX_Size() int {
-	return xxx_messageInfo_Type.Size(m)
+func (m *SendMesaageResponse) XXX_Size() int {
+	return xxx_messageInfo_SendMesaageResponse.Size(m)
 }
-func (m *Type) XXX_DiscardUnknown() {
-	xxx_messageInfo_Type.DiscardUnknown(m)
+func (m *SendMesaageResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_SendMesaageResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_Type proto.InternalMessageInfo
+var xxx_messageInfo_SendMesaageResponse proto.InternalMessageInfo
 
-func (m *Type) GetType() int64 {
+func (m *SendMesaageResponse) GetStatus() int64 {
 	if m != nil {
-		return m.Type
+		return m.Status
 	}
 	return 0
 }
 
-func (m *Type) GetName() string {
+func (m *SendMesaageResponse) GetErrmsg() string {
 	if m != nil {
-		return m.Name
+		return m.Errmsg
 	}
 	return ""
 }
 
-//三方类型
-type PlatformTypeList struct {
-	Type                 []*Type  `protobuf:"bytes,1,rep,name=type,proto3" json:"type,omitempty"`
+func (m *SendMesaageResponse) GetToken() *Token {
+	if m != nil {
+		return m.Token
+	}
+	return nil
+}
+
+//code校验结果
+type ValidataCodeResponse struct {
+	Status               int64    `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	Errmsg               string   `protobuf:"bytes,2,opt,name=errmsg,proto3" json:"errmsg,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *PlatformTypeList) Reset()         { *m = PlatformTypeList{} }
-func (m *PlatformTypeList) String() string { return proto.CompactTextString(m) }
-func (*PlatformTypeList) ProtoMessage()    {}
-func (*PlatformTypeList) Descriptor() ([]byte, []int) {
+func (m *ValidataCodeResponse) Reset()         { *m = ValidataCodeResponse{} }
+func (m *ValidataCodeResponse) String() string { return proto.CompactTextString(m) }
+func (*ValidataCodeResponse) ProtoMessage()    {}
+func (*ValidataCodeResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_5d492a0187472a3b, []int{7}
 }
 
-func (m *PlatformTypeList) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_PlatformTypeList.Unmarshal(m, b)
+func (m *ValidataCodeResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ValidataCodeResponse.Unmarshal(m, b)
 }
-func (m *PlatformTypeList) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_PlatformTypeList.Marshal(b, m, deterministic)
+func (m *ValidataCodeResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ValidataCodeResponse.Marshal(b, m, deterministic)
 }
-func (m *PlatformTypeList) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_PlatformTypeList.Merge(m, src)
+func (m *ValidataCodeResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ValidataCodeResponse.Merge(m, src)
 }
-func (m *PlatformTypeList) XXX_Size() int {
-	return xxx_messageInfo_PlatformTypeList.Size(m)
+func (m *ValidataCodeResponse) XXX_Size() int {
+	return xxx_messageInfo_ValidataCodeResponse.Size(m)
 }
-func (m *PlatformTypeList) XXX_DiscardUnknown() {
-	xxx_messageInfo_PlatformTypeList.DiscardUnknown(m)
+func (m *ValidataCodeResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ValidataCodeResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_PlatformTypeList proto.InternalMessageInfo
+var xxx_messageInfo_ValidataCodeResponse proto.InternalMessageInfo
 
-func (m *PlatformTypeList) GetType() []*Type {
+func (m *ValidataCodeResponse) GetStatus() int64 {
 	if m != nil {
-		return m.Type
+		return m.Status
 	}
-	return nil
+	return 0
 }
 
-//三方注册请求
-type PlatformRequest struct {
-	Type                 *Type    `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
-	PlatformId           string   `protobuf:"bytes,2,opt,name=platform_id,json=platformId,proto3" json:"platform_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *PlatformRequest) Reset()         { *m = PlatformRequest{} }
-func (m *PlatformRequest) String() string { return proto.CompactTextString(m) }
-func (*PlatformRequest) ProtoMessage()    {}
-func (*PlatformRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5d492a0187472a3b, []int{8}
-}
-
-func (m *PlatformRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_PlatformRequest.Unmarshal(m, b)
-}
-func (m *PlatformRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_PlatformRequest.Marshal(b, m, deterministic)
-}
-func (m *PlatformRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_PlatformRequest.Merge(m, src)
-}
-func (m *PlatformRequest) XXX_Size() int {
-	return xxx_messageInfo_PlatformRequest.Size(m)
-}
-func (m *PlatformRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_PlatformRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_PlatformRequest proto.InternalMessageInfo
-
-func (m *PlatformRequest) GetType() *Type {
+func (m *ValidataCodeResponse) GetErrmsg() string {
 	if m != nil {
-		return m.Type
-	}
-	return nil
-}
-
-func (m *PlatformRequest) GetPlatformId() string {
-	if m != nil {
-		return m.PlatformId
+		return m.Errmsg
 	}
 	return ""
 }
@@ -509,52 +451,47 @@ func init() {
 	proto.RegisterType((*UserBaseInfo)(nil), "account.UserBaseInfo")
 	proto.RegisterType((*UserPlatformInfo)(nil), "account.UserPlatformInfo")
 	proto.RegisterType((*UserInfo)(nil), "account.UserInfo")
+	proto.RegisterType((*EmailOrPhoneRequest)(nil), "account.EmailOrPhoneRequest")
+	proto.RegisterType((*Token)(nil), "account.Token")
+	proto.RegisterType((*RegisterAccountInfo)(nil), "account.RegisterAccountInfo")
 	proto.RegisterType((*SendMesaageResponse)(nil), "account.SendMesaageResponse")
 	proto.RegisterType((*ValidataCodeResponse)(nil), "account.ValidataCodeResponse")
-	proto.RegisterType((*EmailOrPhoneRequest)(nil), "account.EmailOrPhoneRequest")
-	proto.RegisterType((*Type)(nil), "account.Type")
-	proto.RegisterType((*PlatformTypeList)(nil), "account.PlatformTypeList")
-	proto.RegisterType((*PlatformRequest)(nil), "account.PlatformRequest")
 }
 
 func init() { proto.RegisterFile("proto/account/account.proto", fileDescriptor_5d492a0187472a3b) }
 
 var fileDescriptor_5d492a0187472a3b = []byte{
-	// 530 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x54, 0x5d, 0x6f, 0xd3, 0x30,
-	0x14, 0x5d, 0x3e, 0xe8, 0xd8, 0x6d, 0x37, 0x3a, 0x6f, 0x54, 0xe1, 0xa3, 0xa2, 0xf3, 0x53, 0x9f,
-	0x8a, 0x54, 0xc4, 0x13, 0x4f, 0x2b, 0x82, 0xa9, 0xd2, 0x26, 0xa6, 0xb0, 0x4d, 0xe2, 0x85, 0xca,
-	0x5b, 0x6e, 0x4b, 0x44, 0x6b, 0x87, 0xd8, 0x11, 0xea, 0x2f, 0xe0, 0x75, 0x3f, 0x19, 0xd9, 0xb1,
-	0xd3, 0xac, 0x8a, 0x00, 0xf1, 0xd4, 0xdc, 0x63, 0xdf, 0x73, 0xae, 0xcf, 0x3d, 0x2a, 0xbc, 0xc8,
-	0x72, 0xa1, 0xc4, 0x6b, 0x76, 0x77, 0x27, 0x0a, 0xae, 0xdc, 0xef, 0xc8, 0xa0, 0x64, 0xd7, 0x96,
-	0xf4, 0x2b, 0x74, 0xae, 0x25, 0xe6, 0x13, 0x26, 0x71, 0xca, 0xe7, 0x82, 0x1c, 0x80, 0x9f, 0x26,
-	0x91, 0x37, 0xf0, 0x86, 0x41, 0xec, 0xa7, 0x09, 0x39, 0x86, 0x47, 0xb8, 0x62, 0xe9, 0x32, 0xf2,
-	0x07, 0xde, 0x70, 0x2f, 0x2e, 0x0b, 0x8d, 0x66, 0xdf, 0x04, 0xc7, 0x28, 0x28, 0x51, 0x53, 0x10,
-	0x02, 0x21, 0x67, 0x2b, 0x8c, 0x42, 0x03, 0x9a, 0x6f, 0x3a, 0x87, 0xae, 0xe6, 0xbf, 0x5c, 0x32,
-	0x35, 0x17, 0xf9, 0xca, 0x68, 0x10, 0x08, 0xd5, 0x3a, 0x43, 0xab, 0x62, 0xbe, 0x49, 0x1f, 0xc0,
-	0x8e, 0x34, 0x4b, 0x13, 0x23, 0x16, 0xc4, 0x7b, 0x16, 0x99, 0x26, 0xe4, 0x15, 0xb4, 0x33, 0x4b,
-	0xa1, 0xcf, 0x4b, 0x59, 0x70, 0xd0, 0x34, 0xa1, 0xf7, 0x1e, 0x3c, 0xd6, 0x42, 0x46, 0xe0, 0x1d,
-	0x1c, 0x14, 0x12, 0xf3, 0xd9, 0x2d, 0x93, 0x38, 0x4b, 0xf9, 0x5c, 0x18, 0xa9, 0xf6, 0xf8, 0xe9,
-	0xc8, 0xb9, 0x50, 0x7f, 0x73, 0xdc, 0x29, 0xea, 0x0e, 0x9c, 0x01, 0x31, 0xcd, 0x1b, 0x3d, 0x4d,
-	0xe0, 0x0f, 0x82, 0x61, 0x7b, 0xfc, 0xec, 0x01, 0x41, 0xfd, 0x51, 0x71, 0xb7, 0xd8, 0x42, 0xe8,
-	0x2f, 0x0f, 0x8e, 0x3e, 0x23, 0x4f, 0x2e, 0x50, 0x32, 0xb6, 0xc0, 0x18, 0x65, 0x26, 0xb8, 0x44,
-	0xd2, 0x83, 0x96, 0x54, 0x4c, 0x15, 0xd2, 0x1a, 0x60, 0x2b, 0x8d, 0x63, 0x9e, 0xaf, 0xe4, 0xc2,
-	0x7a, 0x6d, 0x2b, 0xfd, 0x76, 0xe3, 0xfa, 0x4c, 0x89, 0xef, 0xc8, 0xdd, 0xdb, 0x0d, 0x74, 0xa5,
-	0x11, 0x63, 0x8e, 0x5e, 0x80, 0xbd, 0x10, 0x5a, 0x73, 0x34, 0x64, 0x2e, 0xd0, 0x8f, 0x70, 0x7c,
-	0xc3, 0x96, 0x69, 0xc2, 0x14, 0x7b, 0x2f, 0x92, 0xff, 0x9e, 0x84, 0x7e, 0x81, 0xa3, 0x0f, 0x5a,
-	0xf6, 0x53, 0x7e, 0xa9, 0xc9, 0x63, 0xfc, 0x51, 0xa0, 0x54, 0x9b, 0x8c, 0x78, 0x8d, 0x19, 0xf1,
-	0xeb, 0x19, 0xe9, 0x41, 0x2b, 0x63, 0x52, 0xfe, 0x74, 0x3b, 0xb4, 0x15, 0x1d, 0x41, 0x78, 0xa5,
-	0x73, 0xd0, 0x94, 0x0d, 0x97, 0x2b, 0xbf, 0x96, 0xab, 0xb7, 0xd0, 0x75, 0x66, 0xeb, 0xbe, 0xf3,
-	0x54, 0x2a, 0x72, 0x52, 0xf5, 0xea, 0x5d, 0xed, 0x57, 0xbb, 0xd2, 0x17, 0x4a, 0x2a, 0x7a, 0x0d,
-	0x4f, 0x5c, 0x9b, 0x9b, 0xfe, 0xa4, 0xa6, 0xd8, 0xdc, 0xb5, 0x9d, 0x3e, 0x7f, 0x3b, 0x7d, 0xe3,
-	0xfb, 0x00, 0x76, 0x4f, 0xcb, 0x3e, 0x72, 0x01, 0xfb, 0x7a, 0xeb, 0xc6, 0x28, 0xed, 0x36, 0x79,
-	0x59, 0x51, 0x36, 0x98, 0xf7, 0x7c, 0x73, 0xda, 0x90, 0x15, 0xba, 0x43, 0x6e, 0xa0, 0x1f, 0xe3,
-	0x22, 0x95, 0x0a, 0x73, 0xab, 0x30, 0x59, 0xd7, 0x79, 0xfe, 0x42, 0xdf, 0x1c, 0x79, 0xba, 0x43,
-	0x62, 0x38, 0xb4, 0x99, 0xc0, 0x7f, 0x1d, 0xb5, 0x5f, 0x9d, 0x36, 0xa5, 0x89, 0xee, 0x90, 0x53,
-	0xe8, 0x9c, 0x8b, 0x45, 0xca, 0x9d, 0x15, 0x7f, 0xa6, 0x3b, 0x7c, 0x30, 0x9a, 0x1d, 0xeb, 0x0c,
-	0x7a, 0x75, 0x8a, 0xc9, 0xda, 0xad, 0x8b, 0x44, 0xd5, 0xf5, 0xad, 0x0d, 0x36, 0x12, 0xdd, 0xb6,
-	0xcc, 0x1f, 0xdd, 0x9b, 0xdf, 0x01, 0x00, 0x00, 0xff, 0xff, 0xb9, 0x93, 0x91, 0x5b, 0x07, 0x05,
-	0x00, 0x00,
+	// 480 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x54, 0xc1, 0x6e, 0x13, 0x31,
+	0x10, 0xed, 0xee, 0x26, 0x2d, 0x9d, 0x94, 0xa8, 0x38, 0x05, 0x85, 0x96, 0x8a, 0xc8, 0xe2, 0x90,
+	0x53, 0x91, 0xc2, 0x91, 0x53, 0x8b, 0x0a, 0xca, 0xa1, 0x22, 0x72, 0x0b, 0x47, 0x22, 0xb7, 0x9e,
+	0x84, 0x55, 0x93, 0xf5, 0x62, 0x7b, 0x85, 0xfa, 0x17, 0x7c, 0x1e, 0x9f, 0x83, 0x3c, 0xeb, 0xec,
+	0x2e, 0xd5, 0x82, 0xaa, 0x9e, 0xb2, 0xf3, 0x3c, 0x7e, 0x6f, 0xde, 0x1b, 0x2b, 0x70, 0x94, 0x1b,
+	0xed, 0xf4, 0x5b, 0x79, 0x73, 0xa3, 0x8b, 0xcc, 0x6d, 0x7e, 0x4f, 0x08, 0x65, 0x3b, 0xa1, 0xe4,
+	0xdf, 0x60, 0xef, 0x8b, 0x45, 0x73, 0x26, 0x2d, 0x4e, 0xb3, 0x85, 0x66, 0x7d, 0x88, 0x53, 0x35,
+	0x8c, 0x46, 0xd1, 0x38, 0x11, 0x71, 0xaa, 0xd8, 0x01, 0x74, 0x71, 0x2d, 0xd3, 0xd5, 0x30, 0x1e,
+	0x45, 0xe3, 0x5d, 0x51, 0x16, 0x1e, 0xcd, 0xbf, 0xeb, 0x0c, 0x87, 0x49, 0x89, 0x52, 0xc1, 0x18,
+	0x74, 0x32, 0xb9, 0xc6, 0x61, 0x87, 0x40, 0xfa, 0xe6, 0x0b, 0xd8, 0xf7, 0xfc, 0xb3, 0x95, 0x74,
+	0x0b, 0x6d, 0xd6, 0xa4, 0xc1, 0xa0, 0xe3, 0xee, 0x72, 0x0c, 0x2a, 0xf4, 0xcd, 0x8e, 0x01, 0xc2,
+	0x48, 0xf3, 0x54, 0x91, 0x58, 0x22, 0x76, 0x03, 0x32, 0x55, 0xec, 0x35, 0xf4, 0xf2, 0x40, 0xe1,
+	0xcf, 0x4b, 0x59, 0xd8, 0x40, 0x53, 0xc5, 0x7f, 0x45, 0xf0, 0xc4, 0x0b, 0x91, 0xc0, 0x7b, 0xe8,
+	0x17, 0x16, 0xcd, 0xfc, 0x5a, 0x5a, 0x9c, 0xa7, 0xd9, 0x42, 0x93, 0x54, 0x6f, 0xf2, 0xfc, 0x64,
+	0x93, 0x42, 0xd3, 0xb3, 0xd8, 0x2b, 0x9a, 0x09, 0x7c, 0x02, 0x46, 0x97, 0x6b, 0x3d, 0x4f, 0x10,
+	0x8f, 0x92, 0x71, 0x6f, 0xf2, 0xf2, 0x2f, 0x82, 0xa6, 0x29, 0xb1, 0x5f, 0xdc, 0x43, 0xf8, 0x29,
+	0x0c, 0xce, 0x7d, 0x5a, 0x9f, 0xcd, 0xcc, 0xc7, 0x23, 0xf0, 0x47, 0x81, 0xd6, 0xd5, 0x89, 0x46,
+	0xad, 0x89, 0xc6, 0x8d, 0x44, 0xf9, 0x14, 0xba, 0x57, 0xfa, 0x16, 0x33, 0xef, 0x9f, 0xfa, 0xe6,
+	0xce, 0x97, 0xe1, 0x2a, 0x10, 0x54, 0x35, 0xd0, 0x95, 0xd0, 0x10, 0x87, 0x80, 0x3c, 0x44, 0x0d,
+	0xfc, 0x12, 0x06, 0x02, 0x97, 0xa9, 0x75, 0x68, 0x4e, 0x43, 0xac, 0xde, 0xed, 0x1b, 0xe8, 0xd6,
+	0x94, 0xbd, 0x49, 0xbf, 0x32, 0x48, 0xb7, 0x44, 0x79, 0xc8, 0x5e, 0xc0, 0x76, 0x2e, 0xad, 0xfd,
+	0xa9, 0x02, 0x71, 0xa8, 0xf8, 0x2d, 0x0c, 0x2e, 0x31, 0x53, 0x17, 0x68, 0xa5, 0x5c, 0xa2, 0x40,
+	0x9b, 0xeb, 0xcc, 0xa2, 0x6f, 0xb7, 0x4e, 0xba, 0xc2, 0x86, 0x15, 0x87, 0xca, 0xe3, 0x68, 0xcc,
+	0xda, 0x2e, 0x37, 0x34, 0x65, 0x55, 0x0f, 0x91, 0xfc, 0x67, 0x08, 0xfe, 0x11, 0x0e, 0xbe, 0xca,
+	0x55, 0xaa, 0xa4, 0x93, 0x1f, 0xb4, 0x7a, 0xb4, 0xda, 0xe4, 0x77, 0x0c, 0x3b, 0x21, 0x02, 0x76,
+	0x01, 0x4f, 0xbd, 0x01, 0xda, 0x93, 0x27, 0x65, 0xaf, 0x2a, 0xed, 0x96, 0xdd, 0x1d, 0xd6, 0xa7,
+	0x2d, 0xb6, 0xf9, 0x16, 0x13, 0xf0, 0x2c, 0x8c, 0x88, 0x0f, 0xa5, 0x3c, 0xae, 0x4e, 0xdb, 0xcc,
+	0xf1, 0x2d, 0x76, 0x05, 0x47, 0xf7, 0x16, 0x77, 0x76, 0x77, 0x5e, 0x2f, 0xbe, 0x66, 0x6f, 0x59,
+	0xef, 0x61, 0xfb, 0x8b, 0xff, 0x07, 0xeb, 0xac, 0x7a, 0x2d, 0x8f, 0x64, 0xbd, 0xde, 0xa6, 0x7f,
+	0x97, 0x77, 0x7f, 0x02, 0x00, 0x00, 0xff, 0xff, 0x3b, 0xd0, 0xcf, 0x68, 0x7c, 0x04, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -571,14 +508,12 @@ const _ = grpc.SupportPackageIsVersion4
 type AccountClient interface {
 	//邮箱发送验证码
 	SendEmailCode(ctx context.Context, in *EmailOrPhoneRequest, opts ...grpc.CallOption) (*SendMesaageResponse, error)
-	//通过email或者手机号注册一个用户
-	RegisterAccountByEmailOrPhone(ctx context.Context, in *EmailOrPhoneRequest, opts ...grpc.CallOption) (*UserBaseInfo, error)
 	//邮箱验证校验
 	ValidateEmailCode(ctx context.Context, in *EmailOrPhoneRequest, opts ...grpc.CallOption) (*ValidataCodeResponse, error)
-	//通过验证码，或者手机登录
-	LoginAccount(ctx context.Context, in *EmailOrPhoneRequest, opts ...grpc.CallOption) (*UserInfo, error)
-	//通过三方登录
-	LoginAccountByPlatform(ctx context.Context, in *PlatformRequest, opts ...grpc.CallOption) (*UserInfo, error)
+	//通过email注册一个用户
+	RegisterAccountByEmailToken(ctx context.Context, in *RegisterAccountInfo, opts ...grpc.CallOption) (*UserBaseInfo, error)
+	//通过手机号注册一个用户
+	RegisterAccountByPhoneToken(ctx context.Context, in *RegisterAccountInfo, opts ...grpc.CallOption) (*UserBaseInfo, error)
 }
 
 type accountClient struct {
@@ -598,15 +533,6 @@ func (c *accountClient) SendEmailCode(ctx context.Context, in *EmailOrPhoneReque
 	return out, nil
 }
 
-func (c *accountClient) RegisterAccountByEmailOrPhone(ctx context.Context, in *EmailOrPhoneRequest, opts ...grpc.CallOption) (*UserBaseInfo, error) {
-	out := new(UserBaseInfo)
-	err := c.cc.Invoke(ctx, "/account.Account/RegisterAccountByEmailOrPhone", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *accountClient) ValidateEmailCode(ctx context.Context, in *EmailOrPhoneRequest, opts ...grpc.CallOption) (*ValidataCodeResponse, error) {
 	out := new(ValidataCodeResponse)
 	err := c.cc.Invoke(ctx, "/account.Account/ValidateEmailCode", in, out, opts...)
@@ -616,18 +542,18 @@ func (c *accountClient) ValidateEmailCode(ctx context.Context, in *EmailOrPhoneR
 	return out, nil
 }
 
-func (c *accountClient) LoginAccount(ctx context.Context, in *EmailOrPhoneRequest, opts ...grpc.CallOption) (*UserInfo, error) {
-	out := new(UserInfo)
-	err := c.cc.Invoke(ctx, "/account.Account/LoginAccount", in, out, opts...)
+func (c *accountClient) RegisterAccountByEmailToken(ctx context.Context, in *RegisterAccountInfo, opts ...grpc.CallOption) (*UserBaseInfo, error) {
+	out := new(UserBaseInfo)
+	err := c.cc.Invoke(ctx, "/account.Account/RegisterAccountByEmailToken", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *accountClient) LoginAccountByPlatform(ctx context.Context, in *PlatformRequest, opts ...grpc.CallOption) (*UserInfo, error) {
-	out := new(UserInfo)
-	err := c.cc.Invoke(ctx, "/account.Account/LoginAccountByPlatform", in, out, opts...)
+func (c *accountClient) RegisterAccountByPhoneToken(ctx context.Context, in *RegisterAccountInfo, opts ...grpc.CallOption) (*UserBaseInfo, error) {
+	out := new(UserBaseInfo)
+	err := c.cc.Invoke(ctx, "/account.Account/RegisterAccountByPhoneToken", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -638,14 +564,12 @@ func (c *accountClient) LoginAccountByPlatform(ctx context.Context, in *Platform
 type AccountServer interface {
 	//邮箱发送验证码
 	SendEmailCode(context.Context, *EmailOrPhoneRequest) (*SendMesaageResponse, error)
-	//通过email或者手机号注册一个用户
-	RegisterAccountByEmailOrPhone(context.Context, *EmailOrPhoneRequest) (*UserBaseInfo, error)
 	//邮箱验证校验
 	ValidateEmailCode(context.Context, *EmailOrPhoneRequest) (*ValidataCodeResponse, error)
-	//通过验证码，或者手机登录
-	LoginAccount(context.Context, *EmailOrPhoneRequest) (*UserInfo, error)
-	//通过三方登录
-	LoginAccountByPlatform(context.Context, *PlatformRequest) (*UserInfo, error)
+	//通过email注册一个用户
+	RegisterAccountByEmailToken(context.Context, *RegisterAccountInfo) (*UserBaseInfo, error)
+	//通过手机号注册一个用户
+	RegisterAccountByPhoneToken(context.Context, *RegisterAccountInfo) (*UserBaseInfo, error)
 }
 
 // UnimplementedAccountServer can be embedded to have forward compatible implementations.
@@ -655,17 +579,14 @@ type UnimplementedAccountServer struct {
 func (*UnimplementedAccountServer) SendEmailCode(ctx context.Context, req *EmailOrPhoneRequest) (*SendMesaageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendEmailCode not implemented")
 }
-func (*UnimplementedAccountServer) RegisterAccountByEmailOrPhone(ctx context.Context, req *EmailOrPhoneRequest) (*UserBaseInfo, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RegisterAccountByEmailOrPhone not implemented")
-}
 func (*UnimplementedAccountServer) ValidateEmailCode(ctx context.Context, req *EmailOrPhoneRequest) (*ValidataCodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ValidateEmailCode not implemented")
 }
-func (*UnimplementedAccountServer) LoginAccount(ctx context.Context, req *EmailOrPhoneRequest) (*UserInfo, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method LoginAccount not implemented")
+func (*UnimplementedAccountServer) RegisterAccountByEmailToken(ctx context.Context, req *RegisterAccountInfo) (*UserBaseInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RegisterAccountByEmailToken not implemented")
 }
-func (*UnimplementedAccountServer) LoginAccountByPlatform(ctx context.Context, req *PlatformRequest) (*UserInfo, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method LoginAccountByPlatform not implemented")
+func (*UnimplementedAccountServer) RegisterAccountByPhoneToken(ctx context.Context, req *RegisterAccountInfo) (*UserBaseInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RegisterAccountByPhoneToken not implemented")
 }
 
 func RegisterAccountServer(s *grpc.Server, srv AccountServer) {
@@ -690,24 +611,6 @@ func _Account_SendEmailCode_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Account_RegisterAccountByEmailOrPhone_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(EmailOrPhoneRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AccountServer).RegisterAccountByEmailOrPhone(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/account.Account/RegisterAccountByEmailOrPhone",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServer).RegisterAccountByEmailOrPhone(ctx, req.(*EmailOrPhoneRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _Account_ValidateEmailCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(EmailOrPhoneRequest)
 	if err := dec(in); err != nil {
@@ -726,38 +629,38 @@ func _Account_ValidateEmailCode_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Account_LoginAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(EmailOrPhoneRequest)
+func _Account_RegisterAccountByEmailToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegisterAccountInfo)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AccountServer).LoginAccount(ctx, in)
+		return srv.(AccountServer).RegisterAccountByEmailToken(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/account.Account/LoginAccount",
+		FullMethod: "/account.Account/RegisterAccountByEmailToken",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServer).LoginAccount(ctx, req.(*EmailOrPhoneRequest))
+		return srv.(AccountServer).RegisterAccountByEmailToken(ctx, req.(*RegisterAccountInfo))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Account_LoginAccountByPlatform_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PlatformRequest)
+func _Account_RegisterAccountByPhoneToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegisterAccountInfo)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AccountServer).LoginAccountByPlatform(ctx, in)
+		return srv.(AccountServer).RegisterAccountByPhoneToken(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/account.Account/LoginAccountByPlatform",
+		FullMethod: "/account.Account/RegisterAccountByPhoneToken",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServer).LoginAccountByPlatform(ctx, req.(*PlatformRequest))
+		return srv.(AccountServer).RegisterAccountByPhoneToken(ctx, req.(*RegisterAccountInfo))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -771,20 +674,16 @@ var _Account_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Account_SendEmailCode_Handler,
 		},
 		{
-			MethodName: "RegisterAccountByEmailOrPhone",
-			Handler:    _Account_RegisterAccountByEmailOrPhone_Handler,
-		},
-		{
 			MethodName: "ValidateEmailCode",
 			Handler:    _Account_ValidateEmailCode_Handler,
 		},
 		{
-			MethodName: "LoginAccount",
-			Handler:    _Account_LoginAccount_Handler,
+			MethodName: "RegisterAccountByEmailToken",
+			Handler:    _Account_RegisterAccountByEmailToken_Handler,
 		},
 		{
-			MethodName: "LoginAccountByPlatform",
-			Handler:    _Account_LoginAccountByPlatform_Handler,
+			MethodName: "RegisterAccountByPhoneToken",
+			Handler:    _Account_RegisterAccountByPhoneToken_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -12,7 +12,7 @@ import (
 //用户注册登录
 
 //邮箱或者手机号注册
-func (this *AccountService) RegisterAccountByEmailOrPhone(ctx context.Context, in *account.EmailOrPhoneRequest) (*account.UserBaseInfo, error) {
+func (this *AccountService) RegisterAccountByEmailToken(ctx context.Context, in *account.RegisterAccountInfo) (*account.UserBaseInfo, error) {
 
 	//邮箱注册
 	if in.Email != "" {
@@ -38,12 +38,7 @@ func (this *AccountService) RegisterAccountByEmailOrPhone(ctx context.Context, i
 	return nil, fmt.Errorf("你想干嘛？你怎么不传参数？")
 }
 
-//手机号或者email登录
-func (this *AccountService) LoginAccount(ctx context.Context, in *account.EmailOrPhoneRequest) (*account.UserInfo, error) {
+func (this *AccountService) RegisterAccountByPhoneToken(ctx context.Context, in *account.RegisterAccountInfo) (*account.UserBaseInfo, error) {
 	return nil, nil
 }
 
-//第三方登录
-func (this *AccountService) LoginAccountByPlatform(ctx context.Context, in *account.PlatformRequest) (*account.UserInfo, error) {
-	return nil, nil
-}
