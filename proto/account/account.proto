@@ -17,9 +17,6 @@ service Account {
     rpc RegisterAccountByEmailToken (RegisterAccountInfo) returns (UserBaseInfo) {
     }
 
-    //通过手机号注册一个用户
-    rpc RegisterAccountByPhoneToken (RegisterAccountInfo) returns (UserBaseInfo) {
-    }
 
 }
 
