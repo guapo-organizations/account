@@ -8,6 +8,7 @@ import (
 	"github.com/guapo-organizations/go-micro-secret/help"
 	"github.com/lifei6671/gorand"
 	email_lib "github.com/nilslice/email"
+	"log"
 	"sync"
 	"time"
 )
@@ -66,6 +67,7 @@ func SendEmailCode(email string) (result bool, err error) {
 				Body:    fmt.Sprintf("欢迎，欢迎，这是您的验证码：%s;请收好", code),
 			}
 			send_err = msg.Send()
+			log.Println("邮箱错误信息是什么:",send_err)
 			if send_err != nil {
 				result = false
 				err = send_err

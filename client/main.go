@@ -24,9 +24,9 @@ func main() {
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	r, err := c.SendEmailCode(ctx, &pb.EmailOrPhoneRequest{Email: "876499812@qq.com"})
+	r, err := c.SendEmailCode(ctx, &pb.EmailOrPhoneRequest{Email: "51785816@qq.com"})
 	if err != nil {
-		log.Printf("could not greet: %v", err)
+		log.Fatal("rpc发生错误: %v", err)
 	}
 
 	log.Printf("结果:%v", r)
