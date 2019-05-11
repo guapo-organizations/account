@@ -12,8 +12,18 @@ import (
 //有效发送验证码
 func (this *AccountService) SendEmailCode(ctx context.Context, in *account.EmailOrPhoneRequest) (*account.SendMesaageResponse, error) {
 
-	if !help.VerifyEmailFormat(in.Email){
-		return nil,fmt.Errorf("邮箱格式不对")
+	if !help.VerifyEmailFormat(in.Email) {
+		return nil, fmt.Errorf("邮箱格式不对")
+	}
+
+	return nil, nil
+}
+
+//校验邮箱验证码
+func (this *AccountService) ValidateEmailCode(ctx context.Context, in *account.EmailOrPhoneRequest) (*account.ValidataCodeResponse, error) {
+
+	if !help.VerifyEmailFormat(in.Email) {
+		return nil, fmt.Errorf("邮箱格式不对")
 	}
 
 	return nil, nil

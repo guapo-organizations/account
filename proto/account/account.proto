@@ -12,6 +12,10 @@ service Account {
     rpc SendEmailCode (EmailOrPhoneRequest) returns (SendMesaageResponse) {
     }
 
+    //邮箱验证校验
+    rpc ValidateEmailCode (EmailOrPhoneRequest) returns (ValidataCodeResponse) {
+    }
+
     //通过验证码，或者手机登录
     rpc LoginAccount (EmailOrPhoneRequest) returns (UserInfo) {
     }
@@ -51,7 +55,14 @@ message UserInfo {
 
 //发送消息的结果
 message SendMesaageResponse {
+    int64 status = 1;
+    string errmsg = 2;
+}
+
+//code校验结果
+message ValidataCodeResponse {
     bool status = 1;
+    string errmsg = 2;
 }
 
 //邮件或手机号注册请求
