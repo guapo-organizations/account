@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/go-redis/redis"
 	"github.com/guapo-organizations/go-micro-secret/cache"
+	"github.com/guapo-organizations/go-micro-secret/help"
 	"github.com/lifei6671/gorand"
 	email_lib "github.com/nilslice/email"
 	"strings"
@@ -26,6 +27,11 @@ func (this SendMessageService) getEmailCacheKey(email string) string {
 
 //邮箱发送验证码
 func (this SendMessageService) SendEmailCode(email string) (bool, error) {
+
+	if !help.VerifyEmailFormat(email) {
+		return false, fmt.Errorf("邮箱格式不对")
+	}
+
 	redis_client := cache.GetRedisClient()
 
 	_, err := redis_client.Get(this.getEmailCacheKey(email)).Result()
@@ -69,7 +75,7 @@ func (this SendMessageService) CheckEmailCode(email string) (bool, error) {
 	redis_client := cache.GetRedisClient()
 	result, err := redis_client.Get(this.getEmailCacheKey(email)).Result()
 	if err == redis.Nil {
-		return false, fmt.Errorf("邮箱:%s没有发送邮件哦", email)
+		return false, fmt.Errorf("邮箱:%s没有发送邮件或者过期咯！", email)
 	}
 	//不知道什么错
 	if err != nil {
