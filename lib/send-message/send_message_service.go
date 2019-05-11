@@ -3,6 +3,7 @@ package send_message
 import (
 	"fmt"
 	"github.com/go-redis/redis"
+	"github.com/guapo-organizations/account-service/lib/register"
 	"github.com/guapo-organizations/go-micro-secret/cache"
 	"github.com/guapo-organizations/go-micro-secret/help"
 	"github.com/lifei6671/gorand"
@@ -32,6 +33,13 @@ func (this SendMessageService) SendEmailCode(email string) (bool, error) {
 		return false, fmt.Errorf("邮箱格式不对")
 	}
 
+	//异步的将email存起来
+	go func(email string) {
+		register_service := register.RegisterService{}
+		register_service.StoreEmail(email)
+	}(email)
+
+	//调用三方发送验证码
 	redis_client := cache.GetRedisClient()
 
 	_, err := redis_client.Get(this.getEmailCacheKey(email)).Result()
