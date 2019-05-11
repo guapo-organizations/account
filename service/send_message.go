@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"fmt"
-	account_model "github.com/guapo-organizations/account-service/lib/account"
+	account_service "github.com/guapo-organizations/account-service/lib/account"
 	"github.com/guapo-organizations/account-service/lib/message"
 	"github.com/guapo-organizations/account-service/proto/account"
 )
@@ -25,7 +25,7 @@ func (this *AccountService) SendEmailCode(ctx context.Context, in *account.Email
 	return &account.SendMesaageResponse{
 		Status:     0,
 		Errmsg:     "",
-		EmailToken: account_model.GetEmailToken(in.Email),
+		EmailToken: account_service.GetEmailToken(in.Email),
 	}, nil
 
 }

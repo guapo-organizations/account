@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"fmt"
-	"github.com/guapo-organizations/account-service/lib/account"
+	account_service "github.com/guapo-organizations/account-service/lib/account"
 	"github.com/guapo-organizations/account-service/proto/account"
 )
 
@@ -13,11 +13,10 @@ import (
 
 //邮箱或者手机号注册
 func (this *AccountService) RegisterAccountByEmailOrPhone(ctx context.Context, in *account.EmailOrPhoneRequest) (*account.UserBaseInfo, error) {
-	register_service := account.RegisterService{}
 
 	//邮箱注册
 	if in.Email != "" {
-		account_model, err := register_service.RegisterAccountByEmail(in.Email, in.Passwd)
+		account_model, err := account_service.RegisterAccountByEmail(in.Email, in.Passwd)
 		//可能是格式出错
 		if err != nil {
 			return nil, err
@@ -27,7 +26,7 @@ func (this *AccountService) RegisterAccountByEmailOrPhone(ctx context.Context, i
 
 	//手机号注册
 	if in.Phone != "" {
-		account_model, err := register_service.RegisterAccountByPhone(in.Phone, in.Passwd)
+		account_model, err := account_service.RegisterAccountByPhone(in.Phone, in.Passwd)
 		//可能是格式出错
 		if err != nil {
 			return nil, err
