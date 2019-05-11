@@ -4,14 +4,15 @@ package account;
 
 //Account项目服务
 service Account {
-    //通过email或者手机号注册一个用户
-    rpc RegisterAccountByEmailOrPhone (EmailOrPhoneRequest) returns (UserBaseInfo) {
-    }
 
     //邮箱发送验证码
     rpc SendEmailCode (EmailOrPhoneRequest) returns (SendMesaageResponse) {
     }
 
+    
+    //通过email或者手机号注册一个用户
+    rpc RegisterAccountByEmailOrPhone (EmailOrPhoneRequest) returns (UserBaseInfo) {
+    }
     //邮箱验证校验
     rpc ValidateEmailCode (EmailOrPhoneRequest) returns (ValidataCodeResponse) {
     }
@@ -57,6 +58,10 @@ message UserInfo {
 message SendMesaageResponse {
     int64 status = 1;
     string errmsg = 2;
+    //换取email的token
+    string email_token = 3;
+    //换取phone的token
+    string phone_token = 4;
 }
 
 //code校验结果

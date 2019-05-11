@@ -1,14 +1,13 @@
-package send_message
+package message
 
 import (
 	"fmt"
 	"github.com/go-redis/redis"
-	"github.com/guapo-organizations/account-service/lib/register"
+	"github.com/guapo-organizations/account-service/lib/account"
 	"github.com/guapo-organizations/go-micro-secret/cache"
 	"github.com/guapo-organizations/go-micro-secret/help"
 	"github.com/lifei6671/gorand"
 	email_lib "github.com/nilslice/email"
-	"strings"
 	"sync"
 	"time"
 )
@@ -19,16 +18,15 @@ const (
 	EMAIL_CODE_CACHE_PREFIX = "email:code:"
 )
 
-type SendMessageService struct {
-}
+//一分钟内不能重发验证码
 
-//邮箱缓存key
-func (this SendMessageService) getEmailCacheKey(email string) string {
+//用于判断是否一分钟内的缓存
+func getEmailCacheKey(email string) string {
 	return EMAIL_CODE_CACHE_PREFIX + email
 }
 
-//邮箱发送验证码
-func (this SendMessageService) SendEmailCode(email string) (result bool, err error) {
+//发送邮箱验证码,并且存入缓存，注册的时候通过token从缓存中获取email
+func SendEmailCode(email string) (result bool, err error) {
 
 	if !help.VerifyEmailFormat(email) {
 		result = false
@@ -40,11 +38,10 @@ func (this SendMessageService) SendEmailCode(email string) (result bool, err err
 	var wg sync.WaitGroup
 	wg.Add(2)
 
-	//异步的将email存起来
+	//异步的将email存起来，注册的时候通过token去获取
 	go func(email string) {
 		defer wg.Done()
-		register_service := register.RegisterService{}
-		_, store_err := register_service.StoreEmail(email)
+		_, store_err := account.StoreEmail(email)
 		if store_err != nil {
 			result = false
 			err = store_err
@@ -54,9 +51,10 @@ func (this SendMessageService) SendEmailCode(email string) (result bool, err err
 	//调用三方发送验证码
 	go func(email string) {
 		defer wg.Done()
+
 		redis_client := cache.GetRedisClient()
 		//如果err没有报错，则是获取到了值
-		_, send_err := redis_client.Get(this.getEmailCacheKey(email)).Result()
+		_, send_err := redis_client.Get(getEmailCacheKey(email)).Result()
 
 		if send_err == redis.Nil {
 			//邮箱没有发送过
@@ -73,7 +71,7 @@ func (this SendMessageService) SendEmailCode(email string) (result bool, err err
 				err = send_err
 				return
 			}
-			_, err = redis_client.SetNX(this.getEmailCacheKey(email), code, 60*time.Second).Result()
+			_, err = redis_client.SetNX(getEmailCacheKey(email), code, 60*time.Second).Result()
 			if send_err != nil {
 				result = false
 				err = send_err
@@ -100,22 +98,3 @@ func (this SendMessageService) SendEmailCode(email string) (result bool, err err
 	return
 }
 
-//校验emailCode
-func (this SendMessageService) CheckEmailCode(email string) (bool, error) {
-	redis_client := cache.GetRedisClient()
-	result, err := redis_client.Get(this.getEmailCacheKey(email)).Result()
-	if err == redis.Nil {
-		return false, fmt.Errorf("邮箱:%s没有发送邮件或者过期咯！", email)
-	}
-	//不知道什么错
-	if err != nil {
-		return false, err
-	}
-
-	//比较一下
-	if !strings.EqualFold(result, email) {
-		return false, nil
-	}
-
-	return true, nil
-}
