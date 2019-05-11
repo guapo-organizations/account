@@ -1,4 +1,4 @@
-package lib
+package register
 
 import (
 	"fmt"
