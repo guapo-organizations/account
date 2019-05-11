@@ -2,14 +2,14 @@ syntax = "proto3";
 
 package account;
 
-//Account项目服务
+//Account项目服务,做到了发送验证码，下一步用token从缓存中换取信息
 service Account {
 
     //邮箱发送验证码
     rpc SendEmailCode (EmailOrPhoneRequest) returns (SendMesaageResponse) {
     }
 
-    
+
     //通过email或者手机号注册一个用户
     rpc RegisterAccountByEmailOrPhone (EmailOrPhoneRequest) returns (UserBaseInfo) {
     }
