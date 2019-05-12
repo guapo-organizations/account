@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	pb "github.com/guapo-organizations/account-service/proto/account"
 	"google.golang.org/grpc"
 	"log"
@@ -12,6 +13,11 @@ const (
 	address = "localhost:50051"
 )
 
+var email string
+
+func init() {
+	flag.StringVar(&email, "email", "", "验证码邮件收件人")
+}
 func main() {
 	// Set up a connection to the server.
 	conn, err := grpc.Dial(address, grpc.WithInsecure())
@@ -24,7 +30,7 @@ func main() {
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	r, err := c.SendEmailCode(ctx, &pb.EmailOrPhoneRequest{Email: "876499812@qq.com"})
+	r, err := c.SendEmailCode(ctx, &pb.EmailOrPhoneRequest{Email: email})
 	if err != nil {
 		log.Fatal("rpc发生错误: %v", err)
 	}
