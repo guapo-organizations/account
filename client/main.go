@@ -17,6 +17,7 @@ var email string
 
 func init() {
 	flag.StringVar(&email, "email", "", "验证码邮件收件人")
+	flag.Parse()
 }
 func main() {
 	// Set up a connection to the server.
