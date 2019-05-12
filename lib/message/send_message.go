@@ -65,8 +65,8 @@ func SendEmailCode(email string) (result bool, err error) {
 			m := mail.NewMessage()
 			m.SetHeader("From", FROM_EMAIL)
 			m.SetHeader("To", email)
-			m.SetHeader("Subject", "亲，你有一份职位邀请函，请查收~")
-			m.SetBody("text/html", fmt.Sprintf("万事屋工作职位邀请码：%s", code))
+			m.SetHeader("Subject", "最靓的仔")
+			m.SetBody("text/html", fmt.Sprintf("亲，您有一份万事屋工作职位邀请码哦~：%s", code))
 			send_err = d.DialAndSend(m)
 			log.Println("邮箱错误信息是什么:", send_err)
 			if send_err != nil {
