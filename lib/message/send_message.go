@@ -2,19 +2,20 @@ package message
 
 import (
 	"fmt"
+	"github.com/go-mail/mail"
 	"github.com/go-redis/redis"
 	"github.com/guapo-organizations/account-service/lib/account"
 	"github.com/guapo-organizations/go-micro-secret/cache"
 	"github.com/guapo-organizations/go-micro-secret/help"
 	"github.com/lifei6671/gorand"
-	email_lib "github.com/nilslice/email"
 	"log"
 	"sync"
 	"time"
 )
 
 const (
-	FROM_EMAIL = "13647897503@163.com"
+	FROM_EMAIL = "song8339702@163.com"
+	PASSWD_EMAIL = "s123456"
 	//缓存前缀
 	EMAIL_CODE_CACHE_PREFIX = "account-service:email:code:"
 )
@@ -60,14 +61,14 @@ func SendEmailCode(email string) (result bool, err error) {
 		if send_err == redis.Nil {
 			//邮箱没有发送过
 			code := gorand.KRand(6, gorand.KC_RAND_KIND_ALL)
-			msg := email_lib.Message{
-				To:      email,
-				From:    FROM_EMAIL,
-				Subject: "来自最靓的仔团队",
-				Body:    fmt.Sprintf("欢迎，欢迎，这是您的验证码：%s;请收好", code),
-			}
-			send_err = msg.Send()
-			log.Println("邮箱错误信息是什么:",send_err)
+			d := mail.NewDialer("smtp.163.com", 465, FROM_EMAIL, PASSWD_EMAIL)
+			m := mail.NewMessage()
+			m.SetHeader("From", FROM_EMAIL)
+			m.SetHeader("To", email)
+			m.SetHeader("Subject", "来自最靓的仔团队")
+			m.SetBody("text/html", fmt.Sprintf("欢迎，欢迎，这是您的验证码：%s;请收好", code))
+			send_err = d.DialAndSend(m)
+			log.Println("邮箱错误信息是什么:", send_err)
 			if send_err != nil {
 				result = false
 				err = send_err
@@ -99,4 +100,3 @@ func SendEmailCode(email string) (result bool, err error) {
 
 	return
 }
-
