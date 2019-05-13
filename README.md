@@ -19,6 +19,7 @@
 >> client 测试用的客户端存放处，里面存放的是golang的实现，别的语言的自己想办法
 
 >> gateway 为grpc网关服务器的反向代理存放处
+>>>config grpc网关的服务器配置
 
 
 
@@ -56,10 +57,18 @@ config文件夹中必须拥有一下配置
 ```
 
 
-### service.json grpc服务信息
+### grpc_service.json grpc服务器信息
 ```
 {
   "ip": "126.123.76.73",   #grpc服务地址
   "port": "50051"         #服务端口
+}
+```
+
+### grpc_gateway_service.json grpc网关服务器信息
+```
+{
+  "start": true,           #是否开启了grpc网关
+  "gateway_port": "50051"  #grpc网关服务器端口
 }
 ```
