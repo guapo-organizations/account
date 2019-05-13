@@ -18,15 +18,15 @@ func main() {
 	}
 
 	//返回的是grpc服务的端口
-	port := my_frame_tool.Run()
+	grpc_service_info := my_frame_tool.Run()
 
 	//开始监听
-	lis, err := net.Listen("tcp", fmt.Sprintf(":%s", port))
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%s", grpc_service_info.Port))
 	if err != nil {
 		log.Fatalf("account服务监听失败: %v", err)
 	}
 
-	log.Println(fmt.Sprintf("服务端口:%s", port))
+	log.Println(fmt.Sprintf("服务端口:%s", grpc_service_info.Port))
 
 	//构建服务
 	s := grpc.NewServer()
