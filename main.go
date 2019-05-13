@@ -5,6 +5,7 @@ import (
 	pb "github.com/guapo-organizations/account-service/proto/account"
 	myservice "github.com/guapo-organizations/account-service/service"
 	"github.com/guapo-organizations/go-micro-secret/frame_tool"
+	grpc_service_info "github.com/guapo-organizations/go-micro-secret/frame_tool/service"
 	"google.golang.org/grpc"
 	"log"
 	"net"
@@ -19,15 +20,15 @@ func main() {
 
 	//返回的是grpc服务的链接信息
 	my_frame_tool.Run()
-	grpc_service_info := my_frame_tool.GetGrpcServiceInfo()
+	service_info := grpc_service_info.GetGrpcServiceInfo()
 
 	//开始监听
-	lis, err := net.Listen("tcp", fmt.Sprintf(":%s", grpc_service_info.Port))
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%s", service_info.Port))
 	if err != nil {
 		log.Fatalf("account服务监听失败: %v", err)
 	}
 
-	log.Println(fmt.Sprintf("服务端口:%s", grpc_service_info.Port))
+	log.Println(fmt.Sprintf("服务端口:%s", service_info.Port))
 
 	//构建服务
 	s := grpc.NewServer()
