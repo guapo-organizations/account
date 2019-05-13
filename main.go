@@ -17,7 +17,7 @@ func main() {
 		ConfigPath: "./config",
 	}
 
-	//返回的是grpc服务的端口
+	//返回的是grpc服务的链接信息
 	grpc_service_info := my_frame_tool.Run()
 
 	//开始监听

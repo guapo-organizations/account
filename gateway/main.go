@@ -2,8 +2,10 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"github.com/golang/glog"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/guapo-organizations/go-micro-secret/frame_tool"
 	"google.golang.org/grpc"
 	"net/http"
 
@@ -14,12 +16,16 @@ import (
 //grpc网关
 
 func run() error {
+	my_frame_tool := frame_tool.LyFrameTool{
+		ConfigPath: "../config",
+	}
+	grpc_service_info := my_frame_tool.Run()
 	ctx := context.Background()
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithInsecure()}
-	err := gw.RegisterAccountHandlerFromEndpoint(ctx, mux, "106.12.76.73:5051", opts)
+	err := gw.RegisterAccountHandlerFromEndpoint(ctx, mux, fmt.Sprintf("%s:%s", grpc_service_info.Ip, grpc_service_info.Port), opts)
 	if err != nil {
 		return err
 	}
