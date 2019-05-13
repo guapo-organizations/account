@@ -22,7 +22,7 @@ func run() error {
 	}
 	my_frame_tool.Run()
 	gate_way_service_info := grpc_gateway_service_info.GetGrpcGateWayServiceInfo()
-	
+
 	ctx := context.Background()
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
@@ -34,7 +34,7 @@ func run() error {
 	}
 
 	//grpc网关的服务端监听,也就是开启Web服务
-	return http.ListenAndServe(":8080", mux)
+	return http.ListenAndServe(fmt.Sprintf(":%s", gate_way_service_info.GatewayPort), mux)
 }
 func main() {
 	//不知道这个是什么，github上是这样写的，照样抄就对了,应该是个日志组件之类的
