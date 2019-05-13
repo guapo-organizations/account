@@ -11,6 +11,7 @@ import (
 
 	//grpc网关
 	gw "github.com/guapo-organizations/account-service/proto/account"
+	grpc_gateway_service_info "github.com/guapo-organizations/go-micro-secret/frame_tool/service"
 )
 
 //grpc网关
@@ -19,13 +20,15 @@ func run() error {
 	my_frame_tool := frame_tool.LyFrameTool{
 		ConfigPath: "../config",
 	}
-	grpc_service_info := my_frame_tool.Run()
+	my_frame_tool.Run()
+	gate_way_service_info := grpc_gateway_service_info.GetGrpcGateWayServiceInfo()
+	
 	ctx := context.Background()
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithInsecure()}
-	err := gw.RegisterAccountHandlerFromEndpoint(ctx, mux, fmt.Sprintf("%s:%s", grpc_service_info.Ip, grpc_service_info.Port), opts)
+	err := gw.RegisterAccountHandlerFromEndpoint(ctx, mux, fmt.Sprintf("%s:%s", gate_way_service_info.Ip, gate_way_service_info.Port), opts)
 	if err != nil {
 		return err
 	}
