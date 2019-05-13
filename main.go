@@ -18,7 +18,8 @@ func main() {
 	}
 
 	//返回的是grpc服务的链接信息
-	grpc_service_info := my_frame_tool.Run()
+	my_frame_tool.Run()
+	grpc_service_info := my_frame_tool.GetGrpcServiceInfo()
 
 	//开始监听
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%s", grpc_service_info.Port))

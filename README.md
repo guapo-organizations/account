@@ -1,29 +1,38 @@
 # account
 这条街最靓的仔，账户管理项目
 
-项目目录说明
+## 项目目录说明（自定义框架目录）
 
 > account-serbice
+
 >>config 放一些配置文件，如db、 grpc服务的信息、redis、服务发现连接等
 
 >>proto 里面定义是用protobuf定义服务的微服务
 >>>account 
 
->>service  具体实现protobuf的struct
+>>service  protobuf服务的具体实现
 
 >>model orm模型定义
 
->>lib自定义的库 
+>>lib自定义的库,或者系统
+
+>> client 测试用的客户端存放处，里面存放的是golang的实现，别的语言的自己想办法
+
+>> gateway 为grpc网关服务器的反向代理存放处
 
 
 
+## config 文件配置说明
+
+config文件夹中必须拥有一下配置
+- db.json
+- redis.json
+- service.json
 
 
-## config 里面的配置文件是json格式的
+### db.json配置说明
 
-db配置
 ```
-项目不大，不需要弄读写分离
 {
   "start": true          #开启mysql
   "ip":"126.123.76.73",  #连接ip
@@ -33,4 +42,24 @@ db配置
   "db": "mydb"           #使用的数据
 }
 
+```
+
+### redis.json配置说明
+
+```
+{
+  "start": true,         #是否开启redis
+  "ip": "126.123.76.73", #redis连接地址
+  "port": "6379",        #端口
+  "db": 0                #选择的数据库
+}
+```
+
+
+### service.json grpc服务信息
+```
+{
+  "ip": "126.123.76.73",   #grpc服务地址
+  "port": "50051"         #服务端口
+}
 ```
