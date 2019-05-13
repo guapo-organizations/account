@@ -2,15 +2,26 @@ syntax = "proto3";
 
 package account;
 
+//grpc网关需要用到的库
+import "google/api/annotations.proto";
+
 //Account项目服务,做到了发送验证码，下一步用token从缓存中换取信息
 service Account {
 
     //邮箱发送验证码
     rpc SendEmailCode (EmailOrPhoneRequest) returns (SendMesaageResponse) {
+        option (google.api.http) = {
+            post:"/account/message/email"
+            body:"*"
+        };
     }
 
     //邮箱验证校验
     rpc ValidateEmailCode (EmailOrPhoneRequest) returns (ValidataCodeResponse) {
+        option (google.api.http) = {
+            post:"/account/validate/code/email"
+            body:"*"
+        };
     }
 
     //通过email注册一个用户
