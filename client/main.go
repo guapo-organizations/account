@@ -4,7 +4,9 @@ import (
 	"context"
 	"flag"
 	pb "github.com/guapo-organizations/account-service/proto/account"
+	"github.com/guapo-organizations/go-micro-secret/tls"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 	"log"
 	"time"
 )
@@ -21,7 +23,11 @@ func init() {
 }
 func main() {
 	// Set up a connection to the server.
-	conn, err := grpc.Dial(address, grpc.WithInsecure())
+	//tls配置,文件好像是通过第二个参数也就是 x.test.youtube.com生成的...fuck！！！
+	creds, err := credentials.NewClientTLSFromFile(tls.Path("ca.pem"), "x.test.youtube.com")
+	//连接的时候添加tls配置，公钥？不懂
+	conn, err := grpc.Dial(address, grpc.WithTransportCredentials(creds))
+
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
