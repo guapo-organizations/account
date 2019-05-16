@@ -24,7 +24,7 @@ func init() {
 func main() {
 	// Set up a connection to the server.
 	//tls配置,文件好像是通过第二个参数也就是 x.test.youtube.com生成的...fuck！！！
-	creds, err := credentials.NewClientTLSFromFile(tls.Path("ca.pem"), "x.test.youtube.com")
+	creds, err := credentials.NewClientTLSFromFile(tls.Path("ca.pem"), "zldz.com")
 	//连接的时候添加tls配置，公钥？不懂
 	conn, err := grpc.Dial(address, grpc.WithTransportCredentials(creds))
 
