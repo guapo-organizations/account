@@ -60,8 +60,15 @@ config文件夹中必须拥有一下配置
 ### grpc_service.json grpc服务器信息
 ```
 {
-  "ip": "126.123.76.73",   #grpc服务地址
-  "port": "50051"         #服务端口
+  "ip": "localhost",  #服务所在ip
+  "port": "50051",   #服务所在端口
+  "describe": "",   #服务描述
+  "name": "account",  #服务名字
+  "consul": {          #连接consul服务发现信息
+    "ip": "localhost",  #服务发现所在ip
+    "port": "8500",    #服务发现的端口
+    "checkPort": "8080" #心跳检测的端口
+  }
 }
 ```
 
