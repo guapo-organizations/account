@@ -20,7 +20,7 @@ func main() {
 		ConfigPath: "./config",
 	}
 
-	//返回的是grpc服务的链接信息
+
 	my_frame_tool.Run()
 	service_info := grpc_service_info.GetGrpcServiceInfo()
 
