@@ -35,8 +35,8 @@ func TestTlsSSl(t *testing.T) {
 	defer cancel()
 	r, err := c.SendEmailCode(ctx, &pb.EmailOrPhoneRequest{Email: email})
 	if err != nil {
-		log.Fatal("rpc发生错误: %v", err)
+		t.Fatalf("rpc发生错误: %v", err)
 	}
 
-	log.Printf("结果:%v", r)
+	t.Logf("结果:%v", r)
 }
