@@ -64,13 +64,20 @@ config文件夹中必须拥有一下配置
   "port": "50051",   #服务所在端口
   "describe": "",   #服务描述
   "name": "account",  #服务名字
-  "consul": {          #连接consul服务发现信息
-    "start": true,
-    "ip": "localhost",  #服务发现所在ip
-    "port": "8500",    #服务发现的端口
-    "checkPort": "8080" #心跳检测的端口
-  }
+  "checkPort":"8080"   #服务发现心跳检测的端口
 }
+```
+
+
+### consul 服务发现连接信息配置
+
+```
+{
+  "start": true,     #服务发现是否开启
+  "ip": "localhost", #连接服务发现的ip
+  "port": "8500"     #连接服务发现的端口
+}
+
 ```
 
 ### grpc_gateway_service.json grpc网关服务器信息
