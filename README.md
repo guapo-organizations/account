@@ -65,6 +65,7 @@ config文件夹中必须拥有一下配置
   "describe": "",   #服务描述
   "name": "account",  #服务名字
   "consul": {          #连接consul服务发现信息
+    "start": true,
     "ip": "localhost",  #服务发现所在ip
     "port": "8500",    #服务发现的端口
     "checkPort": "8080" #心跳检测的端口
