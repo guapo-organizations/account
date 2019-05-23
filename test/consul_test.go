@@ -17,8 +17,7 @@ func TestFindConsulService(t *testing.T) {
 
 	service_info := service.GetGrpcServiceInfo()
 	config := consul.CreateConfig("localhost", "8500")
-	service_id := consul.CreateAgentServiceUniqueID(service_info.Name, service_info.Ip, service_info.Port)
-	agent_service_info, err := consul.FindService(config, service_id)
+	agent_service_info, err := consul.FindService(config, service_info.Name, "")
 	if err != nil {
 		t.Fatal("找不到服务", err)
 	}

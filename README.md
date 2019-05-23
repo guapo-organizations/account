@@ -65,8 +65,9 @@ config文件夹中必须拥有一下配置
   "ip": "localhost",  #服务所在ip
   "port": "50051",   #服务所在端口
   "describe": "",   #服务描述
-  "name": "account",  #服务名字
-  "checkPort":"8080"   #服务发现心跳检测的端口
+  "name": "account",  #服务发现的名字
+  "checkPort":"8080",   #服务发现心跳检测的端口
+  "tags":"account 账户管理 最靓的仔" #服务发现的tag，可用来过滤查询
 }
 ```
 
