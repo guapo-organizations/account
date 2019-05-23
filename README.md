@@ -65,9 +65,9 @@ config文件夹中必须拥有一下配置
   "ip": "localhost",  #服务所在ip
   "port": "50051",   #服务所在端口
   "describe": "",   #服务描述
-  "name": "account",  #服务发现的名字
+  "name": "zldz.account",  #服务发现的名字
   "checkPort":"8080",   #服务发现心跳检测的端口
-  "tags":"account zldz" #服务发现的tag，可用来过滤查询,中文会报错，不知道怎么解决
+  "tags":"zldz account ly 最靓的仔 账户管理" #服务发现的tag，可用来过滤查询,中文会报错，不知道怎么解决
 }
 ```
 

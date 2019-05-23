@@ -9,6 +9,7 @@ import (
 //测试通过consul服务发现找到服务地址
 func TestFindConsulService(t *testing.T) {
 	config := consul.CreateConfig("localhost", "8500")
+	//tag传中文会报错
 	agent_service_info, err := consul.FindService(config, "account", "account")
 	if err != nil {
 		t.Fatal("找不到服务", err)
