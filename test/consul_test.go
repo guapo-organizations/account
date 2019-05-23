@@ -14,5 +14,5 @@ func TestFindConsulService(t *testing.T) {
 	if err != nil {
 		t.Fatal("找不到服务", err)
 	}
-	log.Printf("id:%s,端口:%d,tags:%s",agent_service_info.Address,agent_service_info.Port,agent_service_info.Tags)
+	log.Printf("id:%s,端口:%d,tags:%s", agent_service_info.Address, agent_service_info.Port, agent_service_info.Tags)
 }

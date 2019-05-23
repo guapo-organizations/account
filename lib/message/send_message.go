@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	FROM_EMAIL = "song8339702@163.com"
+	FROM_EMAIL   = "song8339702@163.com"
 	PASSWD_EMAIL = "s123456"
 	//缓存前缀
 	EMAIL_CODE_CACHE_PREFIX = "account-service:email:code:"

@@ -2,7 +2,6 @@ package model
 
 import "github.com/jinzhu/gorm"
 
-
 type Account struct {
 	gorm.Model
 	Passwd string `gorm:"column:passwd"`

@@ -20,7 +20,6 @@ func main() {
 		ConfigPath: "./config",
 	}
 
-
 	my_frame_tool.Run()
 	service_info := grpc_service_info.GetGrpcServiceInfo()
 

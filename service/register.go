@@ -27,4 +27,3 @@ func (this *AccountService) RegisterAccountByEmailToken(ctx context.Context, in 
 	return this.AccountModelChangeUserBaseInfo(account_model), nil
 
 }
-

@@ -34,8 +34,6 @@ func RegisterAccountByEmail(email, passwd string) (*model.Account, error) {
 	return account_model, nil
 }
 
-
-
 //手机号注册
 func RegisterAccountByPhone(phone, passwd string) (*model.Account, error) {
 
