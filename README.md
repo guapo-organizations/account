@@ -67,7 +67,7 @@ config文件夹中必须拥有一下配置
   "describe": "",   #服务描述
   "name": "account",  #服务发现的名字
   "checkPort":"8080",   #服务发现心跳检测的端口
-  "tags":"account 账户管理 最靓的仔" #服务发现的tag，可用来过滤查询
+  "tags":"account zldz" #服务发现的tag，可用来过滤查询,中文会报错，不知道怎么解决
 }
 ```
 
