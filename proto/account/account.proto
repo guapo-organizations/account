@@ -2,90 +2,28 @@ syntax = "proto3";
 
 package account;
 
-//grpc网关需要用到的库
-import "google/api/annotations.proto";
-
 //Account项目服务,做到了发送验证码，下一步用token从缓存中换取信息
 service Account {
 
-    //邮箱发送验证码
-    rpc SendEmailCode (EmailOrPhoneRequest) returns (SendMesaageResponse) {
-        option (google.api.http) = {
-            post:"/account/message/email"
-            body:"*"
-        };
-    }
-
-    //邮箱验证校验
-    rpc ValidateEmailCode (EmailOrPhoneRequest) returns (ValidataCodeResponse) {
-        option (google.api.http) = {
-            post:"/account/validate/code/email"
-            body:"*"
-        };
-    }
-
     //通过email注册一个用户
-    rpc RegisterAccountByEmailToken (RegisterAccountInfo) returns (UserBaseInfo) {
+    rpc RegisterAccountByEmail (RegisterAccountEmailRequester) returns (RegisterAccountEmailResponse) {
     }
 
 
 }
 
-//数据库,基本的账户信息
-message UserBaseInfo {
-    //id
-    int64 id = 1;
+//email注册用户
+message RegisterAccountEmailRequester {
     //邮箱
-    string email = 2;
-    //手机号
-    string phone = 3;
-    //用户的真实姓名
-    string name = 4;
-}
-
-//数据库,用户绑定的三方账号
-message UserPlatformInfo {
-    //账户类型
-    int64 type = 1;
-    //账户id
-    int64 account_id = 2;
-    //三方平台标识的用户id
-    string platform_id = 3;
-}
-
-//获取用户的信息
-message UserInfo {
-    UserBaseInfo user_base_info = 1;
-    repeated UserPlatformInfo user_platform_info = 2;
-}
-
-//邮件或手机号
-message EmailOrPhoneRequest {
     string email = 1;
-    string phone = 2;
+    //验证码
+    string code = 2;
+    //密码
+    string passwd = 3;
 }
 
-//通过token去缓存找对应的手机号或者邮箱
-message Token {
-    string email_token = 1;
-    string phone_token = 2;
-}
-
-//注册账号信息
-message RegisterAccountInfo {
-    Token token = 1;
-    string passwd = 2;
-}
-
-//邮箱或者手机号发送验证码的结果
-message SendMesaageResponse {
-    int64 status = 1;
-    string errmsg = 2;
-    Token token = 3;
-}
-
-//code校验结果
-message ValidataCodeResponse {
-    int64 status = 1;
+//email注册用户响应
+message RegisterAccountEmailResponse {
+    int64 errcode = 1;
     string errmsg = 2;
 }
