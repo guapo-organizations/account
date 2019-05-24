@@ -21,7 +21,6 @@ func (this *AccountService) RegisterAccountByEmail(ctx context.Context, in *acco
 	if err != nil {
 		return nil, err
 	}
-
 	//调用sms服务，查看验证吗是否正确
 	conn, err := my_grpc_connet.GetGrpcConnet("zldz.sms", "sms", consul_config)
 
@@ -53,7 +52,7 @@ func (this *AccountService) RegisterAccountByEmail(ctx context.Context, in *acco
 	if err != nil {
 		return nil, err
 	}
-
+	
 	//响应
 	response := new(account.RegisterAccountEmailResponse)
 	return response, nil
