@@ -28,7 +28,7 @@ func TestRegisterAccountByEmail(t *testing.T) {
 
 	response, err := client.RegisterAccountByEmail(ctx, &account.RegisterAccountEmailRequester{
 		Email:  "51785816@qq.com",
-		Code:   "123456",
+		Code:   "oh09G3",
 		Passwd: "123456789",
 	})
 

@@ -52,7 +52,7 @@ func (this *AccountService) RegisterAccountByEmail(ctx context.Context, in *acco
 	if err != nil {
 		return nil, err
 	}
-	
+
 	//响应
 	response := new(account.RegisterAccountEmailResponse)
 	return response, nil
