@@ -19,12 +19,13 @@ func TestRegisterAccountByEmail(t *testing.T) {
 		log.Fatalln(err)
 	}
 
-	conn, err := grpc.Dial(fmt.Sprintf("%s:%d", "localhost", "50051"), grpc.WithTransportCredentials(creds))
+	conn, err := grpc.Dial(fmt.Sprintf("%s:%s", "localhost", "50051"), grpc.WithTransportCredentials(creds))
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
 	client := account.NewAccountClient(conn)
+
 	response, err := client.RegisterAccountByEmail(ctx, &account.RegisterAccountEmailRequester{
 		Email:  "51785816@qq.com",
 		Code:   "123456",
