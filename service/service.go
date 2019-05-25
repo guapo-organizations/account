@@ -27,6 +27,8 @@ func (this *AccountService) RegisterAccountByEmail(ctx context.Context, in *acco
 	if err != nil {
 		return nil, err
 	}
+	//关闭资源
+	defer conn.Close()
 
 	sms_client := sms_service.NewSmsClient(conn)
 

@@ -21,7 +21,7 @@
 >> gateway 为grpc网关服务器的反向代理存放处
 >>>config grpc网关的服务器配置
 
->>test 单元测试
+>>client 测试
 
 
 

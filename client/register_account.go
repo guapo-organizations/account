@@ -1,18 +1,17 @@
-package test
+package main
 
 import (
-	"context"
 	"fmt"
 	"github.com/guapo-organizations/account-service/proto/account"
 	"github.com/guapo-organizations/go-micro-secret/tls"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"log"
-	"testing"
 	"time"
+	"context"
 )
 
-func TestRegisterAccountByEmail(t *testing.T) {
+func main(){
 	//tls 和 ssl加密
 	creds, err := credentials.NewClientTLSFromFile(tls.Path("ca.pem"), "zldz.com")
 	if err != nil {
