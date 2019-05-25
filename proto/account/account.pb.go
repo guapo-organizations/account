@@ -131,28 +131,390 @@ func (m *RegisterAccountEmailResponse) GetErrmsg() string {
 	return ""
 }
 
+//账号密码登录
+type LoginByPasswordRequest struct {
+	//邮箱
+	Email string `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
+	//手机号
+	Phone string `protobuf:"bytes,2,opt,name=phone,proto3" json:"phone,omitempty"`
+	//密码
+	Passwd               string   `protobuf:"bytes,3,opt,name=passwd,proto3" json:"passwd,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *LoginByPasswordRequest) Reset()         { *m = LoginByPasswordRequest{} }
+func (m *LoginByPasswordRequest) String() string { return proto.CompactTextString(m) }
+func (*LoginByPasswordRequest) ProtoMessage()    {}
+func (*LoginByPasswordRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5d492a0187472a3b, []int{2}
+}
+
+func (m *LoginByPasswordRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_LoginByPasswordRequest.Unmarshal(m, b)
+}
+func (m *LoginByPasswordRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_LoginByPasswordRequest.Marshal(b, m, deterministic)
+}
+func (m *LoginByPasswordRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LoginByPasswordRequest.Merge(m, src)
+}
+func (m *LoginByPasswordRequest) XXX_Size() int {
+	return xxx_messageInfo_LoginByPasswordRequest.Size(m)
+}
+func (m *LoginByPasswordRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_LoginByPasswordRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LoginByPasswordRequest proto.InternalMessageInfo
+
+func (m *LoginByPasswordRequest) GetEmail() string {
+	if m != nil {
+		return m.Email
+	}
+	return ""
+}
+
+func (m *LoginByPasswordRequest) GetPhone() string {
+	if m != nil {
+		return m.Phone
+	}
+	return ""
+}
+
+func (m *LoginByPasswordRequest) GetPasswd() string {
+	if m != nil {
+		return m.Passwd
+	}
+	return ""
+}
+
+//账号密码登录响应
+type LoginByPasswordResponse struct {
+	//错误码
+	Error int64 `protobuf:"varint,1,opt,name=error,proto3" json:"error,omitempty"`
+	//错误信息
+	Errmsg string `protobuf:"bytes,2,opt,name=errmsg,proto3" json:"errmsg,omitempty"`
+	//登录的token
+	Token                string   `protobuf:"bytes,3,opt,name=token,proto3" json:"token,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *LoginByPasswordResponse) Reset()         { *m = LoginByPasswordResponse{} }
+func (m *LoginByPasswordResponse) String() string { return proto.CompactTextString(m) }
+func (*LoginByPasswordResponse) ProtoMessage()    {}
+func (*LoginByPasswordResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5d492a0187472a3b, []int{3}
+}
+
+func (m *LoginByPasswordResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_LoginByPasswordResponse.Unmarshal(m, b)
+}
+func (m *LoginByPasswordResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_LoginByPasswordResponse.Marshal(b, m, deterministic)
+}
+func (m *LoginByPasswordResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LoginByPasswordResponse.Merge(m, src)
+}
+func (m *LoginByPasswordResponse) XXX_Size() int {
+	return xxx_messageInfo_LoginByPasswordResponse.Size(m)
+}
+func (m *LoginByPasswordResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_LoginByPasswordResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LoginByPasswordResponse proto.InternalMessageInfo
+
+func (m *LoginByPasswordResponse) GetError() int64 {
+	if m != nil {
+		return m.Error
+	}
+	return 0
+}
+
+func (m *LoginByPasswordResponse) GetErrmsg() string {
+	if m != nil {
+		return m.Errmsg
+	}
+	return ""
+}
+
+func (m *LoginByPasswordResponse) GetToken() string {
+	if m != nil {
+		return m.Token
+	}
+	return ""
+}
+
+//token解码请求
+type TokenDecodeRequest struct {
+	Token                string   `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *TokenDecodeRequest) Reset()         { *m = TokenDecodeRequest{} }
+func (m *TokenDecodeRequest) String() string { return proto.CompactTextString(m) }
+func (*TokenDecodeRequest) ProtoMessage()    {}
+func (*TokenDecodeRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5d492a0187472a3b, []int{4}
+}
+
+func (m *TokenDecodeRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_TokenDecodeRequest.Unmarshal(m, b)
+}
+func (m *TokenDecodeRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_TokenDecodeRequest.Marshal(b, m, deterministic)
+}
+func (m *TokenDecodeRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TokenDecodeRequest.Merge(m, src)
+}
+func (m *TokenDecodeRequest) XXX_Size() int {
+	return xxx_messageInfo_TokenDecodeRequest.Size(m)
+}
+func (m *TokenDecodeRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_TokenDecodeRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_TokenDecodeRequest proto.InternalMessageInfo
+
+func (m *TokenDecodeRequest) GetToken() string {
+	if m != nil {
+		return m.Token
+	}
+	return ""
+}
+
+//token解码响应
+type TokenDecodeResponse struct {
+	//用户基本信息
+	UserBaseInfo *UserBaseInfo `protobuf:"bytes,1,opt,name=user_base_info,json=userBaseInfo,proto3" json:"user_base_info,omitempty"`
+	//用户在三方的信息
+	UserOpenPlatformInfo []*UserOpenPlatformInfo `protobuf:"bytes,2,rep,name=user_open_platform_info,json=userOpenPlatformInfo,proto3" json:"user_open_platform_info,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                `json:"-"`
+	XXX_unrecognized     []byte                  `json:"-"`
+	XXX_sizecache        int32                   `json:"-"`
+}
+
+func (m *TokenDecodeResponse) Reset()         { *m = TokenDecodeResponse{} }
+func (m *TokenDecodeResponse) String() string { return proto.CompactTextString(m) }
+func (*TokenDecodeResponse) ProtoMessage()    {}
+func (*TokenDecodeResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5d492a0187472a3b, []int{5}
+}
+
+func (m *TokenDecodeResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_TokenDecodeResponse.Unmarshal(m, b)
+}
+func (m *TokenDecodeResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_TokenDecodeResponse.Marshal(b, m, deterministic)
+}
+func (m *TokenDecodeResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TokenDecodeResponse.Merge(m, src)
+}
+func (m *TokenDecodeResponse) XXX_Size() int {
+	return xxx_messageInfo_TokenDecodeResponse.Size(m)
+}
+func (m *TokenDecodeResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_TokenDecodeResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_TokenDecodeResponse proto.InternalMessageInfo
+
+func (m *TokenDecodeResponse) GetUserBaseInfo() *UserBaseInfo {
+	if m != nil {
+		return m.UserBaseInfo
+	}
+	return nil
+}
+
+func (m *TokenDecodeResponse) GetUserOpenPlatformInfo() []*UserOpenPlatformInfo {
+	if m != nil {
+		return m.UserOpenPlatformInfo
+	}
+	return nil
+}
+
+//用户基本信息
+type UserBaseInfo struct {
+	AccountId            int64    `protobuf:"varint,1,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"`
+	Email                string   `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+	Phone                string   `protobuf:"bytes,3,opt,name=phone,proto3" json:"phone,omitempty"`
+	Name                 string   `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UserBaseInfo) Reset()         { *m = UserBaseInfo{} }
+func (m *UserBaseInfo) String() string { return proto.CompactTextString(m) }
+func (*UserBaseInfo) ProtoMessage()    {}
+func (*UserBaseInfo) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5d492a0187472a3b, []int{6}
+}
+
+func (m *UserBaseInfo) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UserBaseInfo.Unmarshal(m, b)
+}
+func (m *UserBaseInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UserBaseInfo.Marshal(b, m, deterministic)
+}
+func (m *UserBaseInfo) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UserBaseInfo.Merge(m, src)
+}
+func (m *UserBaseInfo) XXX_Size() int {
+	return xxx_messageInfo_UserBaseInfo.Size(m)
+}
+func (m *UserBaseInfo) XXX_DiscardUnknown() {
+	xxx_messageInfo_UserBaseInfo.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UserBaseInfo proto.InternalMessageInfo
+
+func (m *UserBaseInfo) GetAccountId() int64 {
+	if m != nil {
+		return m.AccountId
+	}
+	return 0
+}
+
+func (m *UserBaseInfo) GetEmail() string {
+	if m != nil {
+		return m.Email
+	}
+	return ""
+}
+
+func (m *UserBaseInfo) GetPhone() string {
+	if m != nil {
+		return m.Phone
+	}
+	return ""
+}
+
+func (m *UserBaseInfo) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+//用户开放平台的信息
+type UserOpenPlatformInfo struct {
+	Id int64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	//账户id
+	AccountId int64 `protobuf:"varint,2,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"`
+	//三方类型，比如微信
+	Type int64 `protobuf:"varint,3,opt,name=type,proto3" json:"type,omitempty"`
+	//三方的唯一标识，比如微信的UnionId
+	PlatformId           string   `protobuf:"bytes,4,opt,name=platform_id,json=platformId,proto3" json:"platform_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UserOpenPlatformInfo) Reset()         { *m = UserOpenPlatformInfo{} }
+func (m *UserOpenPlatformInfo) String() string { return proto.CompactTextString(m) }
+func (*UserOpenPlatformInfo) ProtoMessage()    {}
+func (*UserOpenPlatformInfo) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5d492a0187472a3b, []int{7}
+}
+
+func (m *UserOpenPlatformInfo) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UserOpenPlatformInfo.Unmarshal(m, b)
+}
+func (m *UserOpenPlatformInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UserOpenPlatformInfo.Marshal(b, m, deterministic)
+}
+func (m *UserOpenPlatformInfo) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UserOpenPlatformInfo.Merge(m, src)
+}
+func (m *UserOpenPlatformInfo) XXX_Size() int {
+	return xxx_messageInfo_UserOpenPlatformInfo.Size(m)
+}
+func (m *UserOpenPlatformInfo) XXX_DiscardUnknown() {
+	xxx_messageInfo_UserOpenPlatformInfo.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UserOpenPlatformInfo proto.InternalMessageInfo
+
+func (m *UserOpenPlatformInfo) GetId() int64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *UserOpenPlatformInfo) GetAccountId() int64 {
+	if m != nil {
+		return m.AccountId
+	}
+	return 0
+}
+
+func (m *UserOpenPlatformInfo) GetType() int64 {
+	if m != nil {
+		return m.Type
+	}
+	return 0
+}
+
+func (m *UserOpenPlatformInfo) GetPlatformId() string {
+	if m != nil {
+		return m.PlatformId
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*RegisterAccountEmailRequester)(nil), "account.RegisterAccountEmailRequester")
 	proto.RegisterType((*RegisterAccountEmailResponse)(nil), "account.RegisterAccountEmailResponse")
+	proto.RegisterType((*LoginByPasswordRequest)(nil), "account.LoginByPasswordRequest")
+	proto.RegisterType((*LoginByPasswordResponse)(nil), "account.LoginByPasswordResponse")
+	proto.RegisterType((*TokenDecodeRequest)(nil), "account.TokenDecodeRequest")
+	proto.RegisterType((*TokenDecodeResponse)(nil), "account.TokenDecodeResponse")
+	proto.RegisterType((*UserBaseInfo)(nil), "account.UserBaseInfo")
+	proto.RegisterType((*UserOpenPlatformInfo)(nil), "account.UserOpenPlatformInfo")
 }
 
 func init() { proto.RegisterFile("proto/account/account.proto", fileDescriptor_5d492a0187472a3b) }
 
 var fileDescriptor_5d492a0187472a3b = []byte{
-	// 196 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x92, 0x2e, 0x28, 0xca, 0x2f,
-	0xc9, 0xd7, 0x4f, 0x4c, 0x4e, 0xce, 0x2f, 0xcd, 0x2b, 0x81, 0xd1, 0x7a, 0x60, 0x51, 0x21, 0x76,
-	0x28, 0x57, 0x29, 0x91, 0x4b, 0x36, 0x28, 0x35, 0x3d, 0xb3, 0xb8, 0x24, 0xb5, 0xc8, 0x11, 0x22,
-	0xe4, 0x9a, 0x9b, 0x98, 0x99, 0x13, 0x94, 0x5a, 0x58, 0x9a, 0x0a, 0x12, 0x14, 0x12, 0xe1, 0x62,
-	0x4d, 0x05, 0x89, 0x48, 0x30, 0x2a, 0x30, 0x6a, 0x70, 0x06, 0x41, 0x38, 0x42, 0x42, 0x5c, 0x2c,
-	0xc9, 0xf9, 0x29, 0xa9, 0x12, 0x4c, 0x60, 0x41, 0x30, 0x5b, 0x48, 0x8c, 0x8b, 0xad, 0x20, 0xb1,
-	0xb8, 0xb8, 0x3c, 0x45, 0x82, 0x19, 0x2c, 0x0a, 0xe5, 0x29, 0x05, 0x70, 0xc9, 0x60, 0xb7, 0xa2,
-	0xb8, 0x20, 0x3f, 0xaf, 0x38, 0x55, 0x48, 0x82, 0x8b, 0x3d, 0xb5, 0xa8, 0x08, 0x6c, 0x1c, 0xc8,
-	0x0e, 0xe6, 0x20, 0x18, 0x17, 0x64, 0x62, 0x6a, 0x51, 0x51, 0x6e, 0x71, 0x3a, 0xd4, 0x1e, 0x28,
-	0xcf, 0xa8, 0x84, 0x8b, 0x1d, 0x6a, 0x92, 0x50, 0x26, 0x97, 0x18, 0x9a, 0xe1, 0x4e, 0x95, 0x60,
-	0xe3, 0x85, 0xd4, 0xf4, 0x60, 0x5e, 0xc6, 0xeb, 0x41, 0x29, 0x55, 0x02, 0xea, 0x20, 0xae, 0x54,
-	0x62, 0x48, 0x62, 0x03, 0x07, 0x9d, 0x31, 0x20, 0x00, 0x00, 0xff, 0xff, 0xce, 0x03, 0x85, 0xfc,
-	0x59, 0x01, 0x00, 0x00,
+	// 474 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x84, 0x54, 0x4d, 0x6f, 0xd3, 0x40,
+	0x10, 0x25, 0x76, 0xda, 0xa8, 0x93, 0x2a, 0x87, 0x21, 0xa4, 0x56, 0xda, 0xa8, 0x91, 0x25, 0x50,
+	0xc5, 0xa1, 0x48, 0xe1, 0xc8, 0x89, 0x08, 0x0e, 0x41, 0x48, 0x44, 0x56, 0x7b, 0x03, 0x45, 0x6e,
+	0x76, 0x12, 0x2c, 0xea, 0x5d, 0xb3, 0x6b, 0x0b, 0x85, 0x3f, 0xc2, 0x5f, 0xe0, 0x67, 0xa2, 0xfd,
+	0xb0, 0xeb, 0xa4, 0x36, 0x3d, 0x65, 0xdf, 0xcb, 0xcc, 0x7b, 0x2f, 0x3b, 0xb3, 0x81, 0xf3, 0x4c,
+	0x8a, 0x5c, 0xbc, 0x89, 0xd7, 0x6b, 0x51, 0xf0, 0xbc, 0xfc, 0xbc, 0x36, 0x2c, 0xf6, 0x1c, 0x0c,
+	0x63, 0x98, 0x44, 0xb4, 0x4d, 0x54, 0x4e, 0xf2, 0xbd, 0xa5, 0x3e, 0xa6, 0x71, 0x72, 0x1f, 0xd1,
+	0xcf, 0x82, 0x34, 0x89, 0x43, 0x38, 0x22, 0xcd, 0x04, 0x9d, 0x69, 0xe7, 0xea, 0x24, 0xb2, 0x00,
+	0x11, 0xba, 0x6b, 0xc1, 0x28, 0xf0, 0x0c, 0x69, 0xce, 0x38, 0x82, 0xe3, 0x2c, 0x56, 0xea, 0x17,
+	0x0b, 0x7c, 0xc3, 0x3a, 0x14, 0x2e, 0xe1, 0xa2, 0xd9, 0x42, 0x65, 0x82, 0x2b, 0xc2, 0x00, 0x7a,
+	0x24, 0xa5, 0x91, 0xd3, 0x1e, 0x7e, 0x54, 0x42, 0xad, 0x48, 0x52, 0xa6, 0x6a, 0xeb, 0x7c, 0x1c,
+	0x0a, 0xbf, 0xc2, 0xe8, 0xb3, 0xd8, 0x26, 0x7c, 0xbe, 0x5b, 0x6a, 0x0b, 0x21, 0x99, 0xcb, 0xdb,
+	0x92, 0x76, 0x08, 0x47, 0xd9, 0x77, 0xc1, 0xcb, 0xb8, 0x16, 0xb4, 0xe6, 0xfd, 0x06, 0x67, 0x8f,
+	0xd4, 0x5d, 0x54, 0x2d, 0x2f, 0xa5, 0x90, 0x2e, 0xa8, 0x05, 0x6d, 0x31, 0x75, 0x75, 0x2e, 0x7e,
+	0x10, 0x77, 0xfa, 0x16, 0x84, 0xaf, 0x01, 0x6f, 0xf4, 0xe1, 0x03, 0xe9, 0xdf, 0x58, 0x0b, 0x6e,
+	0x6b, 0x3b, 0xf5, 0xda, 0xbf, 0x1d, 0x78, 0xbe, 0x57, 0xec, 0x72, 0xbc, 0x83, 0x41, 0xa1, 0x48,
+	0xae, 0xee, 0x62, 0x45, 0xab, 0x84, 0x6f, 0x84, 0x69, 0xeb, 0xcf, 0x5e, 0x5c, 0x97, 0x63, 0xbe,
+	0x55, 0x24, 0xe7, 0xb1, 0xa2, 0x05, 0xdf, 0x88, 0xe8, 0xb4, 0xa8, 0x21, 0xbc, 0x81, 0x33, 0xd3,
+	0x2c, 0x32, 0xe2, 0xab, 0xec, 0x3e, 0xce, 0x37, 0x42, 0xa6, 0x56, 0xc5, 0x9b, 0xfa, 0x57, 0xfd,
+	0xd9, 0x64, 0x4f, 0xe5, 0x4b, 0x46, 0x7c, 0xe9, 0xaa, 0x8c, 0xda, 0xb0, 0x68, 0x60, 0xc3, 0x14,
+	0x4e, 0xeb, 0x9e, 0x38, 0x01, 0x70, 0x2a, 0xab, 0x84, 0xb9, 0xfb, 0x3a, 0x71, 0xcc, 0x82, 0x3d,
+	0x0c, 0xca, 0x6b, 0x1c, 0x94, 0x5f, 0x1f, 0x14, 0x42, 0x97, 0xc7, 0x29, 0x05, 0x5d, 0xbb, 0x6c,
+	0xfa, 0x1c, 0xfe, 0x86, 0x61, 0x53, 0x38, 0x1c, 0x80, 0x57, 0xd9, 0x79, 0x09, 0x3b, 0x88, 0xe1,
+	0x1d, 0xc6, 0x40, 0xe8, 0xe6, 0xbb, 0xcc, 0xfa, 0xf9, 0x91, 0x39, 0xe3, 0x25, 0xf4, 0x1f, 0x6e,
+	0x85, 0x39, 0x57, 0x28, 0xa9, 0x05, 0x9b, 0xfd, 0xf1, 0xa0, 0xe7, 0x36, 0x19, 0x13, 0x18, 0x1d,
+	0x2c, 0xf7, 0x7c, 0x67, 0xd6, 0x1b, 0x5f, 0x55, 0xb7, 0xf8, 0xdf, 0x07, 0x36, 0x7e, 0xf9, 0x44,
+	0x9d, 0x1d, 0x79, 0xf8, 0x0c, 0x6f, 0x61, 0xb0, 0xb7, 0x97, 0x0c, 0x2f, 0xab, 0xd6, 0xe6, 0xe7,
+	0x30, 0x9e, 0xb6, 0x17, 0x54, 0xb2, 0x9f, 0xa0, 0x5f, 0x5b, 0x31, 0x3c, 0xaf, 0x5a, 0x1e, 0x6f,
+	0xe9, 0xf8, 0xa2, 0xf9, 0xcb, 0x52, 0xeb, 0xee, 0xd8, 0xfc, 0xbb, 0xbc, 0xfd, 0x17, 0x00, 0x00,
+	0xff, 0xff, 0x94, 0xbf, 0xd4, 0x81, 0x7c, 0x04, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -169,6 +531,10 @@ const _ = grpc.SupportPackageIsVersion4
 type AccountClient interface {
 	//通过email注册一个用户
 	RegisterAccountByEmail(ctx context.Context, in *RegisterAccountEmailRequester, opts ...grpc.CallOption) (*RegisterAccountEmailResponse, error)
+	//邮箱、手机号加密码登录
+	LoginByPasswod(ctx context.Context, in *LoginByPasswordRequest, opts ...grpc.CallOption) (*LoginByPasswordResponse, error)
+	//token解码
+	TokenDecode(ctx context.Context, in *TokenDecodeRequest, opts ...grpc.CallOption) (*TokenDecodeResponse, error)
 }
 
 type accountClient struct {
@@ -188,10 +554,32 @@ func (c *accountClient) RegisterAccountByEmail(ctx context.Context, in *Register
 	return out, nil
 }
 
+func (c *accountClient) LoginByPasswod(ctx context.Context, in *LoginByPasswordRequest, opts ...grpc.CallOption) (*LoginByPasswordResponse, error) {
+	out := new(LoginByPasswordResponse)
+	err := c.cc.Invoke(ctx, "/account.Account/LoginByPasswod", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountClient) TokenDecode(ctx context.Context, in *TokenDecodeRequest, opts ...grpc.CallOption) (*TokenDecodeResponse, error) {
+	out := new(TokenDecodeResponse)
+	err := c.cc.Invoke(ctx, "/account.Account/TokenDecode", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AccountServer is the server API for Account service.
 type AccountServer interface {
 	//通过email注册一个用户
 	RegisterAccountByEmail(context.Context, *RegisterAccountEmailRequester) (*RegisterAccountEmailResponse, error)
+	//邮箱、手机号加密码登录
+	LoginByPasswod(context.Context, *LoginByPasswordRequest) (*LoginByPasswordResponse, error)
+	//token解码
+	TokenDecode(context.Context, *TokenDecodeRequest) (*TokenDecodeResponse, error)
 }
 
 // UnimplementedAccountServer can be embedded to have forward compatible implementations.
@@ -200,6 +588,12 @@ type UnimplementedAccountServer struct {
 
 func (*UnimplementedAccountServer) RegisterAccountByEmail(ctx context.Context, req *RegisterAccountEmailRequester) (*RegisterAccountEmailResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RegisterAccountByEmail not implemented")
+}
+func (*UnimplementedAccountServer) LoginByPasswod(ctx context.Context, req *LoginByPasswordRequest) (*LoginByPasswordResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LoginByPasswod not implemented")
+}
+func (*UnimplementedAccountServer) TokenDecode(ctx context.Context, req *TokenDecodeRequest) (*TokenDecodeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TokenDecode not implemented")
 }
 
 func RegisterAccountServer(s *grpc.Server, srv AccountServer) {
@@ -224,6 +618,42 @@ func _Account_RegisterAccountByEmail_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Account_LoginByPasswod_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginByPasswordRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServer).LoginByPasswod(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/account.Account/LoginByPasswod",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServer).LoginByPasswod(ctx, req.(*LoginByPasswordRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Account_TokenDecode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TokenDecodeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServer).TokenDecode(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/account.Account/TokenDecode",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServer).TokenDecode(ctx, req.(*TokenDecodeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Account_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "account.Account",
 	HandlerType: (*AccountServer)(nil),
@@ -231,6 +661,14 @@ var _Account_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RegisterAccountByEmail",
 			Handler:    _Account_RegisterAccountByEmail_Handler,
+		},
+		{
+			MethodName: "LoginByPasswod",
+			Handler:    _Account_LoginByPasswod_Handler,
+		},
+		{
+			MethodName: "TokenDecode",
+			Handler:    _Account_TokenDecode_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

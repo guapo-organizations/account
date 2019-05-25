@@ -9,7 +9,14 @@ service Account {
     rpc RegisterAccountByEmail (RegisterAccountEmailRequester) returns (RegisterAccountEmailResponse) {
     }
 
+    //邮箱、手机号加密码登录
+    rpc LoginByPasswod (LoginByPasswordRequest) returns (LoginByPasswordResponse) {
+    }
 
+    //token解码
+    rpc TokenDecode (TokenDecodeRequest) returns (TokenDecodeResponse) {
+    }
+    
 }
 
 //email注册用户
@@ -26,4 +33,56 @@ message RegisterAccountEmailRequester {
 message RegisterAccountEmailResponse {
     int64 errcode = 1;
     string errmsg = 2;
+}
+
+//账号密码登录
+message LoginByPasswordRequest {
+    //邮箱
+    string email = 1;
+    //手机号
+    string phone = 2;
+    //密码
+    string passwd = 3;
+}
+
+//账号密码登录响应
+message LoginByPasswordResponse {
+    //错误码
+    int64 error = 1;
+    //错误信息
+    string errmsg = 2;
+    //登录的token
+    string token = 3;
+}
+
+//token解码请求
+message TokenDecodeRequest {
+    string token = 1;
+}
+
+//token解码响应
+message TokenDecodeResponse {
+    //用户基本信息
+    UserBaseInfo user_base_info = 1;
+    //用户在三方的信息
+    repeated UserOpenPlatformInfo user_open_platform_info = 2;
+}
+
+//用户基本信息
+message UserBaseInfo {
+    int64 account_id = 1;
+    string email = 2;
+    string phone = 3;
+    string name = 4;
+}
+
+//用户开放平台的信息
+message UserOpenPlatformInfo {
+    int64 id = 1;
+    //账户id
+    int64 account_id = 2;
+    //三方类型，比如微信
+    int64 type = 3;
+    //三方的唯一标识，比如微信的UnionId
+    string platform_id = 4;
 }

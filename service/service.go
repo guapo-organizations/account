@@ -59,3 +59,13 @@ func (this *AccountService) RegisterAccountByEmail(ctx context.Context, in *acco
 	response := new(account.RegisterAccountEmailResponse)
 	return response, nil
 }
+
+//邮箱、手机号加密码登录，也就是账号加密码登录
+func (this *AccountService) LoginByPasswod(ctx context.Context, in *account.LoginByPasswordRequest) (*account.LoginByPasswordResponse, error) {
+	return nil, nil
+}
+
+//对用户登录的token进行解码
+func (this *AccountService) TokenDecode(ctx context.Context, in *account.TokenDecodeRequest) (*account.TokenDecodeResponse, error) {
+	return nil, nil
+}
