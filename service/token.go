@@ -15,6 +15,7 @@ func (this *AccountService) TokenEncode(account_model *model.Account, minute tim
 	token_map["Phone"] = account_model.Phone
 	token_map["Email"] = account_model.Email
 	token_map["Name"] = account_model.Name
+	token_map["Id"] = account_model.ID
 	token_map["Account_Platform"] = account_model.Account_Platform
 	token, err := ly_jwt.JwtTokenEncode(token_map, 60)
 	if err != nil {
@@ -25,5 +26,18 @@ func (this *AccountService) TokenEncode(account_model *model.Account, minute tim
 
 //对用户登录的token进行解码
 func (this *AccountService) TokenDecode(ctx context.Context, in *account.TokenDecodeRequest) (*account.TokenDecodeResponse, error) {
+	decode_map, err := ly_jwt.JwtTokenDecode(in.Token)
+	if err != nil {
+		return nil, err
+	}
+	//构建user_base_info
+	user_base_info := new(account.UserBaseInfo)
+	user_base_info.Name = decode_map["Name"].(string)
+	user_base_info.Phone = decode_map["Phone"].(string)
+	user_base_info.AccountId = decode_map["Id"].(int64)
+	user_base_info.Email = decode_map["Email"].(string)
+
+	//如何获取呢
+	//what_type := decode_map["Account_Platform"].(type)
 	return nil, nil
 }
