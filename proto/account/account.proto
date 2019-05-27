@@ -9,14 +9,18 @@ service Account {
     rpc RegisterAccountByEmail (RegisterAccountEmailRequester) returns (RegisterAccountEmailResponse) {
     }
 
-    //邮箱、手机号加密码登录
-    rpc LoginByPasswod (LoginByPasswordRequest) returns (LoginByPasswordResponse) {
+    //邮箱加密码登录
+    rpc LoginByEmailPassword (LoginByPasswordRequest) returns (LoginByPasswordResponse) {
+    }
+
+    //手机号加密码登录
+    rpc LoginByPhonePassword (LoginByPasswordRequest) returns (LoginByPasswordResponse) {
     }
 
     //token解码
     rpc TokenDecode (TokenDecodeRequest) returns (TokenDecodeResponse) {
     }
-    
+
 }
 
 //email注册用户

@@ -8,7 +8,6 @@ import (
 	"github.com/guapo-organizations/go-micro-secret/consul"
 	my_grpc_connet "github.com/guapo-organizations/go-micro-secret/grpc"
 	sms_service "github.com/guapo-organizations/sms-service/proto/sms"
-	"log"
 )
 
 type AccountService struct {
@@ -61,18 +60,6 @@ func (this *AccountService) RegisterAccountByEmail(ctx context.Context, in *acco
 	return response, nil
 }
 
-//邮箱、手机号加密码登录，也就是账号加密码登录
-func (this *AccountService) LoginByPasswod(ctx context.Context, in *account.LoginByPasswordRequest) (*account.LoginByPasswordResponse, error) {
-	//执行登录
-	account_model, err := account_service.LoginByEmailPasswod(in.Email, in.Passwd)
-	if err != nil {
-		return nil, err
-	}
-
-	log.Printf("模型结果%v", account_model)
-
-	return nil, nil
-}
 
 //对用户登录的token进行解码
 func (this *AccountService) TokenDecode(ctx context.Context, in *account.TokenDecodeRequest) (*account.TokenDecodeResponse, error) {
