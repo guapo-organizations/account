@@ -86,7 +86,7 @@ message UserOpenPlatformInfo {
     //账户id
     int64 account_id = 2;
     //三方类型，比如微信
-    int64 type = 3;
-    //三方的唯一标识，比如微信的UnionId
+    int64 type_id = 3;
+    //三方的唯一标识，比如微信的openid
     string platform_id = 4;
 }

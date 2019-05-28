@@ -48,7 +48,7 @@ func (this *AccountService) TokenDecode(ctx context.Context, in *account.TokenDe
 		user_open_platform_info_list = append(user_open_platform_info_list, &account.UserOpenPlatformInfo{
 			Id:         int64(platform_map["Id"].(float64)),
 			AccountId:  int64(platform_map["AccountId"].(float64)),
-			Type:       int64(platform_map["Type"].(float64)),
+			TypeId:       int64(platform_map["TypeId"].(float64)),
 			PlatformId: platform_map["PlatformId"].(string),
 		})
 
