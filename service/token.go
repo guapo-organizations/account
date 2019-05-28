@@ -6,6 +6,7 @@ import (
 	"github.com/guapo-organizations/account-service/model"
 	"github.com/guapo-organizations/account-service/proto/account"
 	ly_jwt "github.com/guapo-organizations/go-micro-secret/jwt"
+	"log"
 	"time"
 )
 
@@ -45,8 +46,9 @@ func (this *AccountService) TokenDecode(ctx context.Context, in *account.TokenDe
 	for _, value := range account_platform {
 
 		platform_map := value.(map[string]interface{})
+		log.Println(platform_map)
 		user_open_platform_info_list = append(user_open_platform_info_list, &account.UserOpenPlatformInfo{
-			Id:         int64(platform_map["Id"].(float64)),
+			Id:         int64(platform_map["ID"].(float64)),
 			AccountId:  int64(platform_map["AccountId"].(float64)),
 			TypeId:       int64(platform_map["TypeId"].(float64)),
 			PlatformId: platform_map["PlatformId"].(string),
