@@ -27,6 +27,7 @@ func (this *AccountService) TokenEncode(account_model *model.Account, minute tim
 //对用户登录的token进行解码
 func (this *AccountService) TokenDecode(ctx context.Context, in *account.TokenDecodeRequest) (*account.TokenDecodeResponse, error) {
 	decode_map, err := ly_jwt.JwtTokenDecode(in.Token)
+
 	if err != nil {
 		return nil, err
 	}
@@ -34,10 +35,27 @@ func (this *AccountService) TokenDecode(ctx context.Context, in *account.TokenDe
 	user_base_info := new(account.UserBaseInfo)
 	user_base_info.Name = decode_map["Name"].(string)
 	user_base_info.Phone = decode_map["Phone"].(string)
-	user_base_info.AccountId = decode_map["Id"].(int64)
+	user_base_info.AccountId = int64(decode_map["Id"].(float64))
 	user_base_info.Email = decode_map["Email"].(string)
 
-	//如何获取呢
-	//what_type := decode_map["Account_Platform"].(type)
-	return nil, nil
+	var user_open_platform_info_list []*account.UserOpenPlatformInfo
+	//构建user_open_platform_info
+	account_platform := decode_map["Account_Platform"].([]interface{})
+
+	for _, value := range account_platform {
+
+		platform_map := value.(map[string]interface{})
+		user_open_platform_info_list = append(user_open_platform_info_list, &account.UserOpenPlatformInfo{
+			Id:         int64(platform_map["Id"].(float64)),
+			AccountId:  int64(platform_map["AccountId"].(float64)),
+			Type:       int64(platform_map["Type"].(float64)),
+			PlatformId: platform_map["PlatformId"].(string),
+		})
+
+	}
+
+	response := new(account.TokenDecodeResponse)
+	response.UserBaseInfo = user_base_info
+	response.UserOpenPlatformInfo = user_open_platform_info_list
+	return response, nil
 }

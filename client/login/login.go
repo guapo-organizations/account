@@ -25,13 +25,25 @@ func main() {
 
 	client := account.NewAccountClient(conn)
 
-	response, err := client.LoginByPasswod(ctx, &account.LoginByPasswordRequest{
+	response, err := client.LoginByEmailPassword(ctx, &account.LoginByPasswordRequest{
 		Email:  "51785816@qq.com",
 		Passwd: "123456",
 	})
 	if err != nil {
 		log.Fatalln("服务端错：", err)
 	}
-
 	log.Println(response)
+
+	log.Println("token测试")
+	response_token, err := client.TokenDecode(ctx, &account.TokenDecodeRequest{
+		Token: response.Token,
+	})
+	if err != nil {
+		log.Fatalln("token服务出错: ", err)
+	}
+	log.Printf("%v", response_token)
+	log.Printf("%v", response_token.UserBaseInfo)
+	log.Printf("你的名字：%s", response_token.UserBaseInfo.Name);
+	log.Println("你的名字：" + response_token.UserBaseInfo.Name);
+	log.Printf("%v", response_token.UserOpenPlatformInfo)
 }
