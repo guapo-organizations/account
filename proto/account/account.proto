@@ -17,6 +17,10 @@ service Account {
     rpc LoginByPhonePassword (LoginByPasswordRequest) returns (LoginByPasswordResponse) {
     }
 
+    //三方登录
+    rpc OpenPlaformLogin (OpenPlaformLoginRequest) returns (OpenPlaformLoginResponse) {
+    }
+
     //token解码
     rpc TokenDecode (TokenDecodeRequest) returns (TokenDecodeResponse) {
     }
@@ -59,6 +63,28 @@ message LoginByPasswordResponse {
     string token = 3;
 }
 
+//三方登录请求，没有的时候，自动注册
+message OpenPlaformLoginRequest {
+    string name = 1;
+    //我们系统自己的三方平台标识
+    uint64 type_id = 2;
+    //比如微信的openid
+    string platform_id = 3;
+    //比如微信的unioncid
+    string union_id = 4;
+
+}
+
+//三方登录响应
+message OpenPlaformLoginResponse {
+    //错误码
+    int64 error = 1;
+    //错误信息
+    string errmsg = 2;
+    //登录的token
+    string token = 3;
+}
+
 //token解码请求
 message TokenDecodeRequest {
     string token = 1;
@@ -89,4 +115,6 @@ message UserOpenPlatformInfo {
     int64 type_id = 3;
     //三方的唯一标识，比如微信的openid
     string platform_id = 4;
+    //同一个三方平台，不同应用，用户的唯一标识
+    string union_id = 5;
 }

@@ -18,7 +18,7 @@ func (this *AccountService) TokenEncode(account_model *model.Account, minute tim
 	token_map["Name"] = account_model.Name
 	token_map["ID"] = account_model.ID
 	token_map["Account_Platform"] = account_model.Account_Platform
-	token, err := ly_jwt.JwtTokenEncode(token_map, 60)
+	token, err := ly_jwt.JwtTokenEncode(token_map, minute)
 	if err != nil {
 		return "", err
 	}
@@ -50,8 +50,9 @@ func (this *AccountService) TokenDecode(ctx context.Context, in *account.TokenDe
 		user_open_platform_info_list = append(user_open_platform_info_list, &account.UserOpenPlatformInfo{
 			Id:         int64(platform_map["ID"].(float64)),
 			AccountId:  int64(platform_map["AccountId"].(float64)),
-			TypeId:       int64(platform_map["TypeId"].(float64)),
+			TypeId:     int64(platform_map["TypeId"].(float64)),
 			PlatformId: platform_map["PlatformId"].(string),
+			UnionId:    platform_map["UnionId"].(string),
 		})
 
 	}

@@ -52,3 +52,20 @@ func (this *AccountService) LoginByPhonePassword(ctx context.Context, in *accoun
 	}, nil
 
 }
+
+//三方登录
+func (this *AccountService) OpenPlaformLogin(ctx context.Context, in *account.OpenPlaformLoginRequest) (*account.OpenPlaformLoginResponse, error) {
+	account_model, err := account_service.LoginByOpenPlatform(in.Name, in.PlatformId, in.UnionId, uint(in.TypeId))
+	if err != nil {
+		return nil, err
+	}
+	//生成token,有效期是一小时
+	token, err := this.TokenEncode(account_model, 60)
+	if err != nil {
+		return nil, err
+	}
+
+	return &account.OpenPlaformLoginResponse{
+		Token: token,
+	}, nil
+}
