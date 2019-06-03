@@ -40,21 +40,24 @@ func (this *AccountService) TokenDecode(ctx context.Context, in *account.TokenDe
 	user_base_info.Email = decode_map["Email"].(string)
 
 	var user_open_platform_info_list []*account.UserOpenPlatformInfo
+
 	//构建user_open_platform_info
-	account_platform := decode_map["Account_Platform"].([]interface{})
+	if decode_map["Account_Platform"] != nil {
+		account_platform := decode_map["Account_Platform"].([]interface{})
 
-	for _, value := range account_platform {
+		for _, value := range account_platform {
 
-		platform_map := value.(map[string]interface{})
-		log.Println(platform_map)
-		user_open_platform_info_list = append(user_open_platform_info_list, &account.UserOpenPlatformInfo{
-			Id:         int64(platform_map["ID"].(float64)),
-			AccountId:  int64(platform_map["AccountId"].(float64)),
-			TypeId:     int64(platform_map["TypeId"].(float64)),
-			PlatformId: platform_map["PlatformId"].(string),
-			UnionId:    platform_map["UnionId"].(string),
-		})
+			platform_map := value.(map[string]interface{})
+			log.Println(platform_map)
+			user_open_platform_info_list = append(user_open_platform_info_list, &account.UserOpenPlatformInfo{
+				Id:         int64(platform_map["ID"].(float64)),
+				AccountId:  int64(platform_map["AccountId"].(float64)),
+				TypeId:     int64(platform_map["TypeId"].(float64)),
+				PlatformId: platform_map["PlatformId"].(string),
+				UnionId:    platform_map["UnionId"].(string),
+			})
 
+		}
 	}
 
 	response := new(account.TokenDecodeResponse)

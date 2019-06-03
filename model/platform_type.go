@@ -5,7 +5,7 @@ import "github.com/jinzhu/gorm"
 type PlatformType struct {
 	gorm.Model
 	Type      int64  `gorm:"column:type"`
-	AppId     int64  `gorm:"column:app_id"`
+	AppId     string  `gorm:"column:app_id"`
 	AppSecret string `gorm:"column:app_secret"`
 }
 
