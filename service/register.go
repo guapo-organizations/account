@@ -5,10 +5,10 @@ import (
 	"fmt"
 	account_service "github.com/guapo-organizations/account-service/lib/account"
 	"github.com/guapo-organizations/account-service/proto/account"
-	"github.com/guapo-organizations/account-service/tls"
 	"github.com/guapo-organizations/go-micro-secret/consul"
 	my_grpc_connet "github.com/guapo-organizations/go-micro-secret/grpc"
 	sms_service "github.com/guapo-organizations/sms-service/proto/sms"
+	"google.golang.org/grpc/credentials"
 )
 
 //邮箱注册
@@ -21,7 +21,7 @@ func (this *AccountService) RegisterAccountByEmail(ctx context.Context, in *acco
 	}
 
 	//调用sms服务，查看验证吗是否正确
-	creds, err := tls.GetClientTLSFromFile("ca.pem", "zldz.com")
+	creds, err := credentials.NewClientTLSFromFile("./config/tls/sms-service/ca.pem", "zldz.com")
 	if err != nil {
 		return nil, err
 	}

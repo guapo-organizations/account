@@ -4,15 +4,15 @@ import (
 	"context"
 	"fmt"
 	"github.com/guapo-organizations/account-service/proto/account"
-	"github.com/guapo-organizations/sms-service/tls"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 	"log"
 	"time"
 )
 
 func main(){
 	//tls 和 ssl加密
-	creds, err := tls.GetClientTLSFromFile("ca.pem","zldz.com")
+	creds, err := credentials.NewClientTLSFromFile("../../config/tls/sms-service/ca.pem", "zldz.com")
 	if err != nil {
 		log.Fatalln(err)
 	}
