@@ -5,6 +5,7 @@ import (
 	"fmt"
 	account_service "github.com/guapo-organizations/account-service/lib/account"
 	"github.com/guapo-organizations/account-service/proto/account"
+	"github.com/guapo-organizations/account-service/tls"
 	"github.com/guapo-organizations/go-micro-secret/consul"
 	my_grpc_connet "github.com/guapo-organizations/go-micro-secret/grpc"
 	sms_service "github.com/guapo-organizations/sms-service/proto/sms"
@@ -20,7 +21,11 @@ func (this *AccountService) RegisterAccountByEmail(ctx context.Context, in *acco
 	}
 
 	//调用sms服务，查看验证吗是否正确
-	conn, err := my_grpc_connet.GetGrpcConnet("zldz.sms", "sms", consul_config)
+	creds, err := tls.GetClientTLSFromFile("ca.pem", "zldz.com")
+	if err != nil {
+		return nil, err
+	}
+	conn, err := my_grpc_connet.GetGrpcConnet("zldz.sms", "sms", consul_config, creds)
 
 	if err != nil {
 		return nil, err
