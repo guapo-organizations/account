@@ -24,6 +24,8 @@
 
 >>client 测试
 
+>> rpc grpc服务存放处
+
 
 
 ## config 文件配置说明

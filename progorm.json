@@ -1,0 +1,24 @@
+{
+  "apps": [
+    {
+      "name": "develop-account-service",
+      "min_uptime": "12h",
+      "script": "./rpc/micro",
+      "instances": 1,
+      "watch": true,
+      "max_restarts": 10,
+      "restart_delay": 4000,
+      "cwd": "./rpc"
+    },
+    {
+      "name": "test-account-service",
+      "min_uptime": "12h",
+      "script": "./rpc/micro.exe",
+      "instances": 1,
+      "watch": true,
+      "max_restarts": 10,
+      "restart_delay": 4000,
+      "cwd": "./rpc"
+    }
+  ]
+}
