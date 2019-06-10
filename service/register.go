@@ -21,7 +21,7 @@ func (this *AccountService) RegisterAccountByEmail(ctx context.Context, in *acco
 	}
 
 	//调用sms服务，查看验证吗是否正确
-	creds, err := credentials.NewClientTLSFromFile("./config/tls/sms-service/ca.pem", "zldz.com")
+	creds, err := credentials.NewClientTLSFromFile("../config/tls/sms-service/ca.pem", "zldz.com")
 	if err != nil {
 		return nil, err
 	}
